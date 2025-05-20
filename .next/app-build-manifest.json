@@ -1,0 +1,60 @@
+{
+  "pages": {
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/layout.css",
+      "static/chunks/app/layout.js"
+    ],
+    "/not-found": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/not-found.js"
+    ],
+    "/(admin)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/layout.js"
+    ],
+    "/(admin)/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/page.js"
+    ],
+    "/(admin)/(others-pages)/(tvshows)/uploadtvshow/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(tvshows)/uploadtvshow/page.js"
+    ],
+    "/(admin)/(others-pages)/(series)/season/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(series)/season/page.js"
+    ],
+    "/(admin)/(others-pages)/(series)/upload/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(series)/upload/page.js"
+    ],
+    "/(admin)/(others-pages)/(tvshows)/uploadtvshowSeason/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(tvshows)/uploadtvshowSeason/page.js"
+    ],
+    "/(admin)/(others-pages)/(series)/episode/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(series)/episode/page.js"
+    ],
+    "/(admin)/(others-pages)/(tvshows)/uploadtvshowEpisode/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(tvshows)/uploadtvshowEpisode/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
+    ]
+  }
+}
