@@ -153,9 +153,19 @@ export default function BasicTableOne() {
                     {video.video_type ?? "Unknown"}
                   </TableCell>
                   <TableCell className="px-4 py-3">
-                    <Link href={`/vendor/video/${video._id}`} className="text-blue-500 hover:underline">
+                    {/* <Link href={`/vendor/video/${video._id}`} className="text-blue-500 hover:underline">
                       View More
                     </Link>
+                    */}
+    <Link 
+  href={`/vendor/video/${video._id}`} 
+  className="text-blue-500 hover:underline"
+>
+  View More
+</Link>
+
+
+
                   </TableCell>
                 </TableRow>
               ))}

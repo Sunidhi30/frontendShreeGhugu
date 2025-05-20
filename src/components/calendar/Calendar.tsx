@@ -254,24 +254,24 @@ const parseJwt = (token) => {
   }; 
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-6">Add New Video</h2>
+    <form onSubmit={handleSubmit} className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-800 shadow-md rounded-lg dark:text-gray-200">
+      <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Add New Video</h2>
       
       {loading && (
-        <div className="mb-4 p-3 bg-blue-100 text-blue-700 rounded">
+        <div className="mb-4 p-3 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 rounded">
           Loading data, please wait...
         </div>
       )}
 
       {/* Text Inputs */}
-      <label className="block mb-1 font-medium">Video Name</label>
+      <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">Video Name</label>
       <input 
         type="text" 
         name="name" 
         value={formData.name}
         onChange={handleInputChange} 
         required 
-        className="w-full border p-2 mb-4" 
+        className="w-full border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 p-2 mb-4 rounded text-gray-900 dark:text-white focus:border-blue-500 focus:outline-none" 
       />
 
       <label className="block mb-1 font-medium">Description</label>

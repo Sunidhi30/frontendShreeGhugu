@@ -9,9 +9,15 @@ import {
   ChevronDownIcon,
   GridIcon,
   HorizontaLDots,
+  InfoIcon,
   ListIcon,
-  UserCircleIcon
+  TableIcon,
+  UserCircleIcon,
+  VideoIcon,
 } from "../icons/index";
+
+ 
+
 
 import SidebarWidget from "./SidebarWidget";
 
@@ -30,7 +36,7 @@ const navItems: NavItem[] = [
   },
  
   {
-    icon: <CalenderIcon />,
+    icon: <VideoIcon />,
     name: "Add Movies",
     path: "/calendar",
   },
@@ -48,7 +54,7 @@ const navItems: NavItem[] = [
   },
   {
     name: "Web-Series",
-    icon: <ListIcon />,
+    icon: <CalenderIcon />,
     subItems: [
       { name: "Add Series", path: "/upload", pro: false },
       { name: "Add Season", path: "/season", pro: false },
@@ -57,7 +63,7 @@ const navItems: NavItem[] = [
   },
   {
     name: "Tv-shows",
-    icon: <ListIcon />,
+    icon: <TableIcon />,
     subItems: [
       { name: "Add TV-Show", path: "/uploadtvshow", pro: false },
       { name: "Add Season", path: "/uploadtvshowSeason", pro: false },
@@ -66,7 +72,7 @@ const navItems: NavItem[] = [
   },
  
   {
-    icon: <CalenderIcon />,
+    icon: <InfoIcon  />,
     name: "Packages",
     path: "/profile",
   },

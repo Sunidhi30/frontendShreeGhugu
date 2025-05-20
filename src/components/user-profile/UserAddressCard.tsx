@@ -144,7 +144,12 @@ export default function VendorPackageCard() {
           </div>
 
           <div className="lg:w-1/3 mt-4 lg:mt-0">
-            <Button variant="default" size="lg" className="w-full" onClick={openModal}>
+          <Button
+      variant="default"
+      size="lg"
+      className="w-full dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+      onClick={openModal}
+    >
               + Create New Package
             </Button>
           </div>

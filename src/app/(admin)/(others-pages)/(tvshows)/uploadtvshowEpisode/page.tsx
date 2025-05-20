@@ -286,21 +286,21 @@ const handleSubmit = async (e: React.FormEvent) => {
       alert(error.response?.data?.message || 'Failed to upload episode');
     }
   };
-  
-  return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Upload Episode</h1>
+
+return (
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Upload Episode</h1>
   
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* TV Show and Season Selection */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Select TV Show</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Select TV Show</label>
               <select
                 value={selectedShowId}
                 onChange={(e) => setSelectedShowId(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
               >
                 <option value="">Choose a TV Show</option>
@@ -313,11 +313,11 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
   
             <div>
-              <label className="block text-sm font-medium text-gray-700">Select Season</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Select Season</label>
               <select
                 value={selectedSeasonId}
                 onChange={(e) => setSelectedSeasonId(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
                 disabled={!selectedShowId}
               >
@@ -334,61 +334,61 @@ const handleSubmit = async (e: React.FormEvent) => {
           {/* Episode Details */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Episode Title</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Episode Title</label>
               <input
                 type="text"
                 name="title"
                 value={episodeData.title}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
               />
             </div>
   
             <div>
-              <label className="block text-sm font-medium text-gray-700">Episode Number</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Episode Number</label>
               <input
                 type="number"
                 name="episode_number"
                 value={episodeData.episode_number}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
               />
             </div>
   
             <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700">Description</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
               <textarea
                 name="description"
                 value={episodeData.description}
                 onChange={handleChange}
                 rows={3}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
               />
             </div>
   
             <div>
-              <label className="block text-sm font-medium text-gray-700">Release Date</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Release Date</label>
               <input
                 type="date"
                 name="release_date"
                 value={episodeData.release_date}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
               />
             </div>
   
             <div>
-              <label className="block text-sm font-medium text-gray-700">Video Duration (seconds)</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Video Duration (seconds)</label>
               <input
                 type="number"
                 name="video_duration"
                 value={episodeData.video_duration}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
               />
             </div>
@@ -396,11 +396,11 @@ const handleSubmit = async (e: React.FormEvent) => {
   
           {/* Media Files */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-gray-900">Media Files</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white">Media Files</h3>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {Object.entries(files).map(([key, value]) => (
                 <div key={key}>
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
                     {key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}
                   </label>
                   <input
@@ -408,7 +408,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     name={key}
                     onChange={handleFileChange}
                     accept={key.includes('video') ? 'video/*' : 'image/*'}
-                    className="mt-1 block w-full"
+                    className="mt-1 block w-full text-gray-700 dark:text-gray-200"
                     required={key === 'thumbnail'}
                   />
                 </div>
@@ -419,12 +419,12 @@ const handleSubmit = async (e: React.FormEvent) => {
           {/* Additional Settings */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Is Premium</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Is Premium</label>
               <select
                 name="is_premium"
                 value={episodeData.is_premium}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="0">No</option>
                 <option value="1">Yes</option>
@@ -432,12 +432,12 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
   
             <div>
-              <label className="block text-sm font-medium text-gray-700">Is Rentable</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Is Rentable</label>
               <select
                 name="is_rent"
                 value={episodeData.is_rent}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
               >
                 <option value="0">No</option>
                 <option value="1">Yes</option>
@@ -447,23 +447,23 @@ const handleSubmit = async (e: React.FormEvent) => {
             {episodeData.is_rent === "1" && (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Price</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Price</label>
                   <input
                     type="number"
                     name="price"
                     value={episodeData.price}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Rent Days</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Rent Days</label>
                   <input
                     type="number"
                     name="rent_day"
                     value={episodeData.rent_day}
                     onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />
                 </div>
               </>
@@ -474,7 +474,7 @@ const handleSubmit = async (e: React.FormEvent) => {
           <div className="flex justify-end">
             <button
               type="submit"
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               Upload Episode
             </button>
@@ -482,5 +482,5 @@ const handleSubmit = async (e: React.FormEvent) => {
         </form>
       </div>
     </div>
-  );  
+  );
 }

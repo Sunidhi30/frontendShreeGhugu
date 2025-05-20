@@ -66,56 +66,114 @@ export default function UploadSeasonForm() {
     }
   };
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
-      {seasons.map((season, index) => (
-        <div key={index} className="space-y-2 p-4 border rounded">
-          <div className="flex justify-between items-center">
-            <h3 className="font-bold">Season {index + 1}</h3>
-            {seasons.length > 1 && (
-              <button
-                type="button"
-                onClick={() => removeSeason(index)}
-                className="text-red-500"
-              >
-                Remove
-              </button>
-            )}
-          </div>
+//   return (
+//     <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
+//       {seasons.map((season, index) => (
+//         <div key={index} className="space-y-2 p-4 border rounded">
+//           <div className="flex justify-between items-center">
+//             <h3 className="font-bold">Season {index + 1}</h3>
+//             {seasons.length > 1 && (
+//               <button
+//                 type="button"
+//                 onClick={() => removeSeason(index)}
+//                 className="text-red-500"
+//               >
+//                 Remove
+//               </button>
+//             )}
+//           </div>
 
-          <input
-            name="name"
-            placeholder="Season Name"
-            value={season.name}
-            onChange={(e) => handleChange(index, e)}
-            className="border p-2 w-full"
-            required
-          />
+//           <input
+//             name="name"
+//             placeholder="Season Name"
+//             value={season.name}
+//             onChange={(e) => handleChange(index, e)}
+//             className="border p-2 w-full"
+//             required
+//           />
           
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={season.description}
-            onChange={(e) => handleChange(index, e)}
-            className="border p-2 w-full"
-          />
-        </div>
-      ))}
+//           <textarea
+//             name="description"
+//             placeholder="Description"
+//             value={season.description}
+//             onChange={(e) => handleChange(index, e)}
+//             className="border p-2 w-full"
+//           />
+//         </div>
+//       ))}
 
+//       <button
+//         type="button"
+//         onClick={addSeason}
+//         className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+//       >
+//         Add Another Season
+//       </button>
+
+//       <button
+//         type="submit"
+//         className="bg-green-600 text-white px-4 py-2 rounded"
+//       >
+//         Submit All Seasons
+//       </button>
+//     </form>
+//   );
+// }
+return (
+  <form onSubmit={handleSubmit} className="space-y-4 max-w-xl dark:bg-gray-900">
+    {seasons.map((season, index) => (
+      <div 
+        key={index} 
+        className="space-y-2 p-4 border rounded dark:border-gray-700 dark:bg-gray-800"
+      >
+        <div className="flex justify-between items-center">
+          <h3 className="font-bold dark:text-white">Season {index + 1}</h3>
+          {seasons.length > 1 && (
+            <button
+              type="button"
+              onClick={() => removeSeason(index)}
+              className="text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300"
+            >
+              Remove
+            </button>
+          )}
+        </div>
+
+        <input
+          name="name"
+          placeholder="Season Name"
+          value={season.name}
+          onChange={(e) => handleChange(index, e)}
+          className="border p-2 w-full rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+          required
+        />
+        
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={season.description}
+          onChange={(e) => handleChange(index, e)}
+          className="border p-2 w-full rounded dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+        />
+      </div>
+    ))}
+
+    <div className="flex gap-2">
       <button
         type="button"
         onClick={addSeason}
-        className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition-colors"
       >
         Add Another Season
       </button>
 
       <button
         type="submit"
-        className="bg-green-600 text-white px-4 py-2 rounded"
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800 transition-colors"
       >
         Submit All Seasons
       </button>
-    </form>
-  );
+    </div>
+  </form>
+);
 }

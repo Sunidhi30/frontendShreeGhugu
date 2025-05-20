@@ -149,6 +149,9 @@
 
 //   );
 // }
+
+
+
 "use client";
 import Image from 'next/image';
 import { useParams } from "next/navigation";
@@ -225,9 +228,28 @@ export default function ViewMore() {
       <h1 className="text-3xl font-semibold text-gray-900 dark:text-white mb-6">{video?.name}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <Image src={video?.thumbnail} alt="Thumbnail" className="rounded-lg shadow-md w-full"/>
-      <Image src={video?.thumbnail} alt="Landscape" className="rounded-lg shadow-md w-full"/>
-      </div>
+  <div className="relative w-full aspect-video">
+    <Image 
+      src={video?.thumbnail || ''} 
+      alt="Thumbnail" 
+      fill
+      sizes="(max-width: 768px) 100vw, 50vw"
+      className="rounded-lg shadow-md object-cover"
+      priority
+    />
+  </div>
+  <div className="relative w-full aspect-video">
+    <Image 
+      src={video?.thumbnail || ''} 
+      alt="Landscape" 
+      fill
+      sizes="(max-width: 768px) 100vw, 50vw"
+      className="rounded-lg shadow-md object-cover"
+      priority
+    />
+  </div>
+</div>
+
 
       <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-800 dark:text-gray-300">
         <div>

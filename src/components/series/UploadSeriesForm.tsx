@@ -77,24 +77,92 @@ export default function UploadSeriesForm() {
   };
   
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
-      <input name="title" placeholder="Title" onChange={handleChange} className="border p-2 w-full" />
-      <textarea name="description" placeholder="Description" onChange={handleChange} className="border p-2 w-full" />
-      <input name="category_id" placeholder="Category ID" onChange={handleChange} className="border p-2 w-full" />
-      <input name="releaseYear" placeholder="Release Year" onChange={handleChange} className="border p-2 w-full" />
-      <input name="tags" placeholder="Tags (comma separated)" onChange={handleChange} className="border p-2 w-full" />
+//   return (
+//     <form onSubmit={handleSubmit} className="space-y-4 max-w-xl">
+//       <input name="title" placeholder="Title" onChange={handleChange} className="border p-2 w-full" />
+//       <textarea name="description" placeholder="Description" onChange={handleChange} className="border p-2 w-full" />
+//       <input name="category_id" placeholder="Category ID" onChange={handleChange} className="border p-2 w-full" />
+//       <input name="releaseYear" placeholder="Release Year" onChange={handleChange} className="border p-2 w-full" />
+//       <input name="tags" placeholder="Tags (comma separated)" onChange={handleChange} className="border p-2 w-full" />
 
-      <div>
-        <label>Thumbnail:</label>
-        <input type="file" name="thumbnail" accept="image/*" onChange={handleFileChange} className="border p-2 w-full" />
-      </div>
-      <div>
-        <label>Landscape:</label>
-        <input type="file" name="landscape" accept="image/*" onChange={handleFileChange} className="border p-2 w-full" />
-      </div>
+//       <div>
+//         <label>Thumbnail:</label>
+//         <input type="file" name="thumbnail" accept="image/*" onChange={handleFileChange} className="border p-2 w-full" />
+//       </div>
+//       <div>
+//         <label>Landscape:</label>
+//         <input type="file" name="landscape" accept="image/*" onChange={handleFileChange} className="border p-2 w-full" />
+//       </div>
 
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
-    </form>
-  );
+//       <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
+//     </form>
+//   );
+// }
+return (
+  <form onSubmit={handleSubmit} className="space-y-4 max-w-xl dark:bg-gray-900">
+    <input 
+      name="title" 
+      placeholder="Title" 
+      onChange={handleChange} 
+      className="border p-2 w-full dark:bg-gray-800 dark:border-gray-800 dark:text-white dark:placeholder-gray-400" 
+    />
+    
+    <textarea 
+      name="description" 
+      placeholder="Description" 
+      onChange={handleChange} 
+      className="border p-2 w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400" 
+    />
+    
+    <input 
+      name="category_id" 
+      placeholder="Category ID" 
+      onChange={handleChange} 
+      className="border p-2 w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400" 
+    />
+    
+    <input 
+      name="releaseYear" 
+      placeholder="Release Year" 
+      onChange={handleChange} 
+      className="border p-2 w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400" 
+    />
+    
+    <input 
+      name="tags" 
+      placeholder="Tags (comma separated)" 
+      onChange={handleChange} 
+      className="border p-2 w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:placeholder-gray-400" 
+    />
+
+    <div>
+      <label className="dark:text-white">Thumbnail:</label>
+      <input 
+        type="file" 
+        name="thumbnail" 
+        accept="image/*" 
+        onChange={handleFileChange} 
+        className="border p-2 w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white" 
+      />
+    </div>
+    
+    <div>
+      <label className="dark:text-white">Landscape:</label>
+      <input 
+        type="file" 
+        name="landscape" 
+        accept="image/*" 
+        onChange={handleFileChange} 
+        className="border p-2 w-full dark:bg-gray-800 dark:border-gray-700 dark:text-white" 
+      />
+    </div>
+
+    <button 
+      type="submit" 
+      className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+    >
+      Submit
+    </button>
+  </form>
+);
 }
