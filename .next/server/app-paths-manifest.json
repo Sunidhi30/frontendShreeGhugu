@@ -1,4 +1,8 @@
 {
-  "/(admin)/(others-pages)/(tvshows)/uploadtvshow/page": "app/(admin)/(others-pages)/(tvshows)/uploadtvshow/page.js",
-  "/(admin)/page": "app/(admin)/page.js"
+  "/_not-found/page": "app/_not-found/page.js",
+  "/(admin)/(others-pages)/(series)/upload/page": "app/(admin)/(others-pages)/(series)/upload/page.js",
+  "/(admin)/(others-pages)/(transactions)/transactionsall/page": "app/(admin)/(others-pages)/(transactions)/transactionsall/page.js",
+  "/(admin)/page": "app/(admin)/page.js",
+  "/(admin)/(others-pages)/edit-profile/page": "app/(admin)/(others-pages)/edit-profile/page.js",
+  "/(full-width-pages)/(auth)/signin/page": "app/(full-width-pages)/(auth)/signin/page.js"
 }

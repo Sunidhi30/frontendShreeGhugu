@@ -87,6 +87,7 @@ export default function EpisodesPage() {
     setEpisodeData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  
   // Handle file change
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.[0]) return;

@@ -3,7 +3,7 @@
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { FiPlus, FiTv, FiUpload, FiX } from 'react-icons/fi';
+import { FiPlus, FiSearch, FiTv, FiUpload, FiX } from 'react-icons/fi';
 
 interface Channel {
   _id: string;
@@ -35,6 +35,7 @@ const TVShowsList = () => {
   const [error, setError] = useState<string>('');
   const [token, setToken] = useState<string | null>(null);
   const [showUploadForm, setShowUploadForm] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   // Upload form state
   const [formData, setFormData] = useState({
@@ -76,19 +77,25 @@ const TVShowsList = () => {
           'Content-Type': 'application/json'
         }
       });
-
+  
       if (response.data && response.data.channels) {
         setChannels(response.data.channels);
+        // Select first channel by default
+        if (response.data.channels.length > 0) {
+          setSelectedChannel(response.data.channels[0]._id);
+        }
       }
     } catch (error: any) {
       setError('Failed to fetch channels');
       console.error('Channel fetch error:', error);
     }
   };
+  
 
   const fetchTVShows = async (channelId: string) => {
     setLoading(true);
     try {
+      console.log('Fetching TV shows for channel:', channelId);
       const response = await axios.get(`http://localhost:9000/api/vendors/tvshows`, {
         params: {
           channel_id: channelId
@@ -98,19 +105,25 @@ const TVShowsList = () => {
           'Content-Type': 'application/json'
         }
       });
-
+  
+      console.log('TV Shows response:', response.data);
+  
       if (response.data && response.data.data) {
         setTvShows(response.data.data.tvShows);
         setError('');
+      } else {
+        console.log('Unexpected response structure:', response.data);
+        setError('Invalid response format');
       }
     } catch (error: any) {
+      console.error('Full error:', error);
       setError('Failed to fetch TV shows');
-      console.error('TV Shows fetch error:', error);
     } finally {
       setLoading(false);
     }
   };
-
+  
+  
   const handleChannelSelect = (channelId: string) => {
     setSelectedChannel(channelId);
   };
@@ -192,66 +205,83 @@ const TVShowsList = () => {
       setUploadLoading(false);
     }
   };
+
+  // Filter channels based on search
+  const filteredChannels = channels.filter(channel =>
+    channel.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-4">
-            TV Shows Management
+        {/* Header with Add New TV Show button */}
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+            TV Shows 
           </h1>
-          
-          {/* Channel Selection */}
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm">
-            <h2 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-3">
-              Select Channel
-            </h2>
-            <div className="flex flex-wrap gap-3">
-              {channels.map(channel => (
-                <button
-                  key={channel._id}
-                  onClick={() => handleChannelSelect(channel._id)}
-                  className={`
-                    px-4 py-2 rounded-lg transition-all transform hover:scale-105
-                    ${selectedChannel === channel._id
-                      ? 'bg-blue-600 text-white shadow-lg'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
-                    }
-                  `}
-                >
-                  <FiTv className="inline-block mr-2" />
-                  {channel.name}
-                </button>
-              ))}
-            </div>
-          </div>
+          <button
+  onClick={() => setShowUploadForm(!showUploadForm)}
+  className={`
+    flex items-center justify-center px-6 py-3 rounded-lg transition-all transform hover:scale-105
+    bg-blue-500 hover:bg-blue-600 text-white shadow-lg
+    ${!selectedChannel ? 'opacity-50 cursor-not-allowed' : ''}
+  `}
+  disabled={!selectedChannel}
+>
+  {showUploadForm ? (
+    <>
+      <FiX className="mr-2" /> Cancel Upload
+    </>
+  ) : (
+    <>
+      <FiPlus className="mr-2" /> Add New TV Show
+    </>
+  )}
+</button>
+
         </div>
 
-        {/* Add New Show Button */}
-        {selectedChannel && (
-          <div className="mb-8">
-            <button
-              onClick={() => setShowUploadForm(!showUploadForm)}
-              className={`
-                flex items-center justify-center px-6 py-3 rounded-lg transition-all transform hover:scale-105
-                ${showUploadForm
-                  ? 'bg-red-500 hover:bg-red-600'
-                  : 'bg-green-500 hover:bg-green-600'
-                } text-white shadow-lg
-              `}
-            >
-              {showUploadForm ? (
-                <>
-                  <FiX className="mr-2" /> Cancel Upload
-                </>
-              ) : (
-                <>
-                  <FiPlus className="mr-2" /> Add New TV Show
-                </>
-              )}
-            </button>
+        {/* Channel Selection with Search */}
+        {/* Channel Selection with Search */}
+<div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg mb-8">
+  <div className="mb-4"> {/* Removed flex and centering */}
+    <div className="relative w-full">
+      <input
+        type="text"
+        placeholder="Search channels..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className="w-full pl-10 pr-4 py-2 border border-gray-400 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+      />
+      <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+    </div>
+  </div>
+
+
+          <div className="flex flex-wrap gap-3">
+            {filteredChannels.map(channel => (
+              <button
+                key={channel._id}
+                onClick={() => handleChannelSelect(channel._id)}
+                className={`
+                  px-4 py-2 rounded-lg transition-all transform hover:scale-105
+                  ${selectedChannel === channel._id
+                    ? 'bg-blue-600 text-white shadow-lg'
+                    : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
+                  }
+                `}
+              >
+                <FiTv className="inline-block mr-2" />
+                {channel.name}
+              </button>
+            ))}
+            {filteredChannels.length === 0 && (
+              <p className="text-gray-500 dark:text-gray-400 p-2">
+                No channels found matching "{searchTerm}"
+              </p>
+            )}
           </div>
-        )}
+        </div>
 
         {/* Upload Form */}
         {showUploadForm && selectedChannel && (
@@ -270,22 +300,24 @@ const TVShowsList = () => {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Form fields with improved styling */}
-                <div className="col-span-2">
-                  <label className="block text-sm font-medium mb-2 dark:text-gray-200">
+<form onSubmit={handleSubmit} className="space-y-6">
+               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               {/* Title */}
+                 <div className="col-span-2">
+                   <label className="block text-sm font-medium mb-2 dark:text-gray-200">
                     Title *
-                  </label>
+                 </label>
                   <input
                     name="title"
                     value={formData.title}
                     onChange={handleFormChange}
                     required
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Enter TV show title"
                   />
                 </div>
 
+                {/* Description */}
                 <div className="col-span-2">
                   <label className="block text-sm font-medium mb-2 dark:text-gray-200">
                     Description
@@ -296,10 +328,11 @@ const TVShowsList = () => {
                     onChange={handleFormChange}
                     rows={4}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Enter TV show description"
                   />
                 </div>
 
-                {/* Additional form fields */}
+                {/* Release Year */}
                 <div>
                   <label className="block text-sm font-medium mb-2 dark:text-gray-200">
                     Release Year
@@ -310,9 +343,11 @@ const TVShowsList = () => {
                     value={formData.releaseYear}
                     onChange={handleFormChange}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Enter release year"
                   />
                 </div>
 
+                {/* Total Seasons */}
                 <div>
                   <label className="block text-sm font-medium mb-2 dark:text-gray-200">
                     Total Seasons
@@ -323,10 +358,41 @@ const TVShowsList = () => {
                     value={formData.totalSeasons}
                     onChange={handleFormChange}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Enter total seasons"
                   />
                 </div>
 
-                {/* File uploads with preview */}
+                {/* Status */}
+                <div>
+                  <label className="block text-sm font-medium mb-2 dark:text-gray-200">
+                    Status
+                  </label>
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleFormChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  >
+                    <option value="ongoing">Ongoing</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </div>
+
+                {/* Tags */}
+                <div>
+                  <label className="block text-sm font-medium mb-2 dark:text-gray-200">
+                    Tags
+                  </label>
+                  <input
+                    name="tags"
+                    value={formData.tags}
+                    onChange={handleFormChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    placeholder="Enter tags (comma separated)"
+                  />
+                </div>
+
+                {/* File uploads */}
                 <div className="col-span-2 space-y-4">
                   <div>
                     <label className="block text-sm font-medium mb-2 dark:text-gray-200">
@@ -395,8 +461,10 @@ const TVShowsList = () => {
           </div>
         )}
 
-        {/* TV Shows Grid */}
-        {loading ? (
+       
+          
+          {/* TV Shows Grid */}
+         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin h-12 w-12 border-4 border-blue-500 border-t-transparent rounded-full"></div>
           </div>
@@ -462,16 +530,24 @@ const TVShowsList = () => {
               </div>
             ) : (
               selectedChannel && (
-                <div className="text-center py-12 text-gray-600 dark:text-gray-300">
-                  No TV shows found for this channel.
+                <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                  <div className="text-6xl mb-4">📺</div>
+                  <h3 className="text-xl font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    No TV Shows Found
+                  </h3>
+                  <p className="text-gray-500 dark:text-gray-400">
+                    There are no TV shows available for this channel yet.
+                  </p>
                 </div>
               )
-            )}
-          </>
-        )}
-      </div>
-    </div>
-  );
-};
 
-export default TVShowsList;
+            )}
+            </>
+          )}
+        </div>
+      </div>
+    );
+  };
+  
+  export default TVShowsList;
+  

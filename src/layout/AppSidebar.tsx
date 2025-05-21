@@ -10,10 +10,9 @@ import {
   GridIcon,
   HorizontaLDots,
   InfoIcon,
-  ListIcon,
   TableIcon,
   UserCircleIcon,
-  VideoIcon,
+  VideoIcon
 } from "../icons/index";
 
  
@@ -35,11 +34,11 @@ const navItems: NavItem[] = [
     subItems: [{ name: "Dashboard", path: "/", pro: false }],
   },
  
-  {
-    icon: <VideoIcon />,
-    name: "Add Movies",
-    path: "/calendar",
-  },
+  // {
+  //   icon: <VideoIcon />,
+  //   name: "Add Movies",
+  //   path: "/calendar",
+  // },
   // {
   //   name: "Forms",
   //   icon: <ListIcon />,
@@ -47,10 +46,12 @@ const navItems: NavItem[] = [
   // },
    {
     name: "Movies",
-    icon: <ListIcon />,
-    subItems: [{ name: "Movies", path: "/basic-videos", pro: false },
+    icon: <VideoIcon />,
+    subItems: [{ name: "Movies List", path: "/basic-videos", pro: false },
     { name: "Movies Status", path: "/reject-videos", pro: false },
-    { name: "Movies Category", path: "/category", pro: false }],
+    { name: "Add Movies", path: "/calendar", pro: false }],
+    // { name: "Movies Category", path: "/category", pro: false }],
+    
   },
   {
     name: "Web-Series",
@@ -68,6 +69,14 @@ const navItems: NavItem[] = [
       { name: "Add TV-Show", path: "/uploadtvshow", pro: false },
       { name: "Add Season", path: "/uploadtvshowSeason", pro: false },
       { name: "Add Episode", path: "/uploadtvshowEpisode", pro: false },
+    ],
+  },
+  {
+    name: "Transactions",
+    icon: <GridIcon />,
+    subItems: [
+      { name: "History", path: "/transactionsall", pro: false },
+
     ],
   },
  
