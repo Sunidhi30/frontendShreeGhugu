@@ -150,75 +150,7 @@ export default function EpisodesPage() {
     setFiles(prev => ({ ...prev, [e.target.name]: e.target.files![0] }));
   };
 
-  // Handle form submission
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     if (!token) return alert('Authentication required');
-//     if (!selectedShowId) return alert('Please select a TV show');
-//     if (!selectedSeasonId) return alert('Please select a season');
 
-//     const formData = new FormData();
-
-//     // Append basic data
-//     formData.append('show_id', selectedShowId);
-//     formData.append('season_id', selectedSeasonId);
-
-//     // Append all episode data
-//     Object.entries(episodeData).forEach(([key, value]) => {
-//       formData.append(key, value);
-//     });
-
-//     // Append files
-//     Object.entries(files).forEach(([key, file]) => {
-//       if (file) formData.append(key, file);
-//     });
-
-//     try {
-//       const response = await axios.post(
-//         'http://localhost:9000/api/vendors/tv-episodes',
-//         formData,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//             'Content-Type': 'multipart/form-data'
-//           }
-//         }
-//       );
-
-//       if (response.data.success) {
-//         alert('Episode uploaded successfully!');
-//         // Reset form
-//         setEpisodeData({
-//           title: '',
-//           description: '',
-//           episode_number: '',
-//           video_duration: '',
-//           video_upload_type: '',
-//           video_extension: '',
-//           release_date: '',
-//           is_premium: '0',
-//           is_rent: '0',
-//           price: '0',
-//           rent_day: '0',
-//           is_like: '0',
-//           is_comment: '0',
-//           tags: ''
-//         });
-//         setFiles({
-//           thumbnail: null,
-//           landscape: null,
-//           video_320: null,
-//           video_480: null,
-//           video_720: null,
-//           video_1080: null,
-//           trailer: null,
-//         });
-//       }
-//     } catch (error: any) {
-//       console.error('Upload error:', error);
-//       alert(error.response?.data?.message || 'Failed to upload episode');
-//     }
-//   };
 const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = localStorage.getItem('token');

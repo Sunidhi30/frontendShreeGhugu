@@ -56,7 +56,7 @@ export default function WithdrawalHistoryPage() {
       }
 
       try {
-        const response = await axios.get('http://localhost:9000/api/vendors/withdrawal/requests', {
+        const response = await axios.get('https://shreejighutargo21.onrender.com/api/vendors/withdrawal/requests', {
           headers: { Authorization: `Bearer ${token}` },
         });
 
