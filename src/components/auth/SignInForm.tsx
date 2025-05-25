@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import confetti from "canvas-confetti";
@@ -9,6 +7,7 @@ import { useState } from "react";
 import Label from "@/components/form/Label";
 import Input from "@/components/form/input/InputField";
 import Button from "@/components/ui/button/Button";
+import React from "react";
 
 export default function SignInForm() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -56,13 +55,16 @@ export default function SignInForm() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`https://shreejighutargo21.onrender.com/api/vendors/vendor-login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ emailOrUsername, password }),
-      });
+      const response = await fetch(
+        `https://shreejighutargo21.onrender.com/api/vendors/vendor-login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ emailOrUsername, password }),
+        }
+      );
 
       const data = await response.json();
       console.log("API Response:", data);
@@ -71,10 +73,9 @@ export default function SignInForm() {
         setModalMessage(
           `${data.message}\n We're waiting for you!\n Redirecting to your dashboard...`
         );
-        
+
         setModalVisible(true);
 
-        // Trigger confetti animation
         fireConfetti();
 
         localStorage.setItem("vendorId", data.vendor._id);
@@ -141,7 +142,13 @@ export default function SignInForm() {
               </div>
 
               <div>
-                <Button className="w-full" size="sm" type="submit" disabled={loading}>
+                {/* This button uses type="submit" correctly now */}
+                <Button
+                  className="w-full"
+                  size="sm"
+                  type="submit"
+                  disabled={loading}
+                >
                   {loading ? "Logging In..." : "Sign In"}
                 </Button>
               </div>

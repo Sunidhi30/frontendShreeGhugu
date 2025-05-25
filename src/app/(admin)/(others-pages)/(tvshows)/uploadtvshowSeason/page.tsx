@@ -2,6 +2,7 @@
 'use client';
 
 import axios from 'axios';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import {
   FiAlertCircle,
@@ -51,14 +52,14 @@ interface ExistingSeason {
   show_id: string;
 }
 
-// interface PaginationData {
-//   total: number;
-//   page: number;
-//   totalPages: number;
-//   hasNextPage: boolean;
-//   hasPrevPage: boolean;
-//   limit: number;
-// }
+interface PaginationData {
+  total: number;
+  page: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  limit: number;
+}
 
 export default function UploadSeasonForm() {
   // State for TV shows and channels
@@ -392,7 +393,7 @@ export default function UploadSeasonForm() {
                     {/* Show Thumbnail */}
                     <div className="relative h-48">
                       {show.thumbnail ? (
-                        <img 
+                        <Image 
                           src={show.thumbnail} 
                           alt={show.title}
                           className="w-full h-full object-cover"

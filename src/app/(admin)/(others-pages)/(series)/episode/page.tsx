@@ -1,7 +1,5 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
-
 interface Series {
   _id: string;
   title: string;

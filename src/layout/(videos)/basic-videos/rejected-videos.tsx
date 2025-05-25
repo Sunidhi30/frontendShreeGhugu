@@ -9,9 +9,11 @@
 // }
 
 // export default rejected-videos
+
+
 import ComponentCard from "@/components/common/ComponentCard";
 import PageBreadcrumb from "@/components/common/PageBreadCrumb";
-import Rejected from "@/components/tables/rejected";
+
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
@@ -29,7 +31,7 @@ export default function BasicTables() {
         <ComponentCard title="Videos">
           {/* <BasicTableOne /> */}
           {/* <ApprovedVideos/> */}
-          < Rejected />
+        
         </ComponentCard>
         {/* <ViewMore /> */}
        

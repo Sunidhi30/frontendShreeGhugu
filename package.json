@@ -2,6 +2,7 @@
   "name": "SS",
   "version": "2.0.2",
   "private": true,
+  "proxy": "https://shreejighutargo21.onrender.com",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

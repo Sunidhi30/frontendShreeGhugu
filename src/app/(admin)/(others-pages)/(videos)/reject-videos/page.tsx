@@ -15,6 +15,7 @@ export default function BasicTables() {
       <PageBreadcrumb pageTitle="Videos" />
       <div className="space-y-6">
         <ComponentCard title="Videos">
+        <></>  
           {/* <BasicTableOne /> */}
           {/* <ApprovedVideos/> */}
         </ComponentCard>

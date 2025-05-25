@@ -104,7 +104,11 @@ export default function ViewMore() {
           <p><span className="font-semibold">Description:</span> {video?.description}</p>
           <p><span className="font-semibold">Type:</span> {video?.video_type}</p>
           <p><span className="font-semibold">Status:</span> {video?.status}</p>
-          <p><span className="font-semibold">Release Date:</span> {new Date(video?.release_date).toLocaleDateString()}</p>
+          <p>
+  <span className="font-semibold">Release Date:</span>{" "}
+  {video?.release_date ? new Date(video.release_date).toLocaleDateString() : "N/A"}
+</p>
+
           <p><span className="font-semibold">Duration:</span> {video?.video_duration} mins</p>
           <p><span className="font-semibold">Extension:</span> {video?.video_extension}</p>
         </div>
@@ -126,8 +130,15 @@ export default function ViewMore() {
         <p><strong>Comments Allowed:</strong> {video?.is_comment ? "Yes" : "No"}</p>
         <p><strong>Approved:</strong> {video?.isApproved ? "Yes" : "No"}</p>
         <p><strong>Top 10:</strong> {video?.isTop10 ? "Yes" : "No"}</p>
-        <p><strong>Created:</strong> {new Date(video?.createdAt).toLocaleString()}</p>
-        <p><strong>Updated:</strong> {new Date(video?.updatedAt).toLocaleString()}</p>
+        <p>
+  <strong>Created:</strong>{" "}
+  {video?.createdAt ? new Date(video.createdAt).toLocaleString() : "N/A"}
+</p>
+<p>
+  <strong>Updated:</strong>{" "}
+  {video?.updatedAt ? new Date(video.updatedAt).toLocaleString() : "N/A"}
+</p>
+
       </div>
 
       {video?.video_320 && (

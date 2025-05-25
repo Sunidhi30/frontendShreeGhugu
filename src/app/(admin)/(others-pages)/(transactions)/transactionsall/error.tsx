@@ -2,6 +2,7 @@
 'use client';
 
 export default function Error({ error, reset }: { error: Error; reset: () => void }) {
+  console.error(error); // log to console
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
       <div className="text-center">

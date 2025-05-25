@@ -4,7 +4,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FiPlus, FiSearch, FiTv, FiUpload, FiX } from 'react-icons/fi';
-
+import Image from 'next/image';
 interface Channel {
   _id: string;
   name: string;
@@ -407,7 +407,7 @@ const TVShowsList = () => {
                         className="flex-1 p-2 border border-gray-300 rounded-lg dark:text-white dark:border-gray-600"
                       />
                       {thumbnail && (
-                        <img
+                        <Image
                           src={URL.createObjectURL(thumbnail)}
                           alt="Thumbnail preview"
                           className="h-16 w-16 object-cover rounded"
@@ -428,7 +428,7 @@ const TVShowsList = () => {
                         className="flex-1 p-2 border border-gray-300 rounded-lg dark:text-white dark:border-gray-600"
                       />
                       {landscape && (
-                        <img
+                        <Image
                           src={URL.createObjectURL(landscape)}
                           alt="Landscape preview"
                           className="h-16 w-28 object-cover rounded"
@@ -504,7 +504,7 @@ const TVShowsList = () => {
               {tvShows.map((show) => (
                 <div key={show._id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                   {show.thumbnail && (
-                    <img
+                    <Image
                       src={show.thumbnail}
                       alt={show.title}
                       className="w-full h-32 object-cover rounded-lg mb-3"

@@ -1,5 +1,5 @@
-
 "use client";
+
 import { worldMill } from "@react-jvectormap/world";
 import dynamic from "next/dynamic";
 import React from "react";
@@ -12,6 +12,7 @@ const VectorMap = dynamic(
 interface Marker {
   latLng: [number, number];
   name: string;
+  r?: number; // Radius per marker
   style?: {
     fill: string;
     borderWidth: number;
@@ -34,11 +35,12 @@ const CountryMap: React.FC<CountryMapProps> = ({ mapColor, markers = [] }) => {
       markerStyle={{
         initial: {
           fill: "#465FFF",
-          r: 4,
+          // no `r` here, it's invalid CSS property
         },
       }}
       markers={markers.map((m) => ({
         ...m,
+        r: m.r ?? 4, // default radius 4 for each marker
         style: {
           fill: "#465FFF",
           borderWidth: 1,
@@ -60,7 +62,7 @@ const CountryMap: React.FC<CountryMapProps> = ({ mapColor, markers = [] }) => {
         hover: {
           fillOpacity: 0.7,
           cursor: "pointer",
-          fill: "#465fff",
+          fill: "#465FFF",
         },
         selected: {
           fill: "#465FFF",

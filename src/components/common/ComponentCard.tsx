@@ -2,7 +2,7 @@ import React from "react";
 
 interface ComponentCardProps {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode; // Made optional with ?
   className?: string; // Additional custom classes for styling
   desc?: string; // Description text
 }
@@ -29,10 +29,12 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
         )}
       </div>
 
-      {/* Card Body */}
-      <div className="p-4 border-t border-gray-100 dark:border-gray-800 sm:p-6">
-        <div className="space-y-6">{children}</div>
-      </div>
+      {/* Card Body - Only render if children exist */}
+      {children && (
+        <div className="p-4 border-t border-gray-100 dark:border-gray-800 sm:p-6">
+          <div className="space-y-6">{children}</div>
+        </div>
+      )}
     </div>
   );
 };

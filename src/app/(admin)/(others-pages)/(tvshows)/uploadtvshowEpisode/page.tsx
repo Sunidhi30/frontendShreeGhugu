@@ -2,7 +2,6 @@
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-
 interface TVShow {
   _id: string;
   title: string;

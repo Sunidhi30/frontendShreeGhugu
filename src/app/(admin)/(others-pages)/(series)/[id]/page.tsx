@@ -1,9 +1,9 @@
 
 'use client';
 
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
 type Episode = {
   _id: string;
   episode_number: number;
@@ -86,7 +86,7 @@ export default function SeriesDetailsPage() {
         {series.title}
       </h1>
   
-      <img
+      <Image
         src={series.landscape || series.thumbnail}
         alt={series.title}
         className="w-full h-48 sm:h-64 object-cover rounded-lg mb-4"
@@ -122,6 +122,7 @@ export default function SeriesDetailsPage() {
           >
             {series.approvalStatus}
           </span>
+          
         </p>
       </div>
   
@@ -155,7 +156,7 @@ export default function SeriesDetailsPage() {
                   className="p-4 border border-gray-300 dark:border-gray-700 rounded-md bg-gray-50 dark:bg-gray-900 flex flex-col gap-4"
                 >
                   <div className="flex flex-col sm:flex-row gap-4 sm:items-center">
-                    <img
+                    <Image
                       src={ep.thumbnail}
                       alt={ep.name}
                       className="w-full sm:w-28 h-16 object-cover rounded-md flex-shrink-0"
@@ -199,7 +200,7 @@ export default function SeriesDetailsPage() {
                       preload="metadata"
                       className="w-full rounded-md"
                     >
-                      Sorry, your browser doesn't support embedded videos.
+                      Sorry, your browser Does&apos;t  support embedded videos.
                     </video>
                   ) : (
                     <p className="text-xs italic text-gray-500 dark:text-gray-400">

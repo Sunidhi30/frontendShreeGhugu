@@ -3,6 +3,7 @@
 import { PencilIcon } from '@heroicons/react/24/solid';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 export default function EditProfilePage() {
   const router = useRouter();
   const [editMode, setEditMode] = useState(false);
@@ -21,7 +22,7 @@ export default function EditProfilePage() {
   });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const defaultImage = 'https://img.freepik.com/premium-vector/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-gender-neutral-silhouette-profile-picture-suitable-social-media-profiles-icons-screensavers-as-templatex9xa_719432-875.jpg?semt=ais_hybrid&w=740';
+  const defaultImage = 'https://Image.freepik.com/premium-vector/vector-flat-illustration-grayscale-avatar-user-profile-person-icon-gender-neutral-silhouette-profile-picture-suitable-social-media-profiles-icons-screensavers-as-templatex9xa_719432-875.jpg?semt=ais_hybrid&w=740';
   useEffect(() => {
     async function fetchVendorProfile() {
       try {
@@ -120,7 +121,7 @@ export default function EditProfilePage() {
 
 //       <div className="flex justify-between items-center">
 //         <div className="flex items-center space-x-4">
-//           <img
+//           <Image
 //             src={formData.image || defaultImage}
 //             alt="Profile"
 //             className="w-24 h-24 rounded-full object-cover border-2 border-gray-300"
@@ -263,7 +264,7 @@ return (
     {/* Header: Profile Image + Info + Edit Button */}
     <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-6">
       <div className="flex items-center space-x-4">
-        <img
+        <Image
           src={formData.image || defaultImage}
           alt="Profile"
           className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"

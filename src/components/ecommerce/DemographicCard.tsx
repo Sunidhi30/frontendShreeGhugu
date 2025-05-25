@@ -1,10 +1,27 @@
 "use client";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import CountryMap from "./CountryMap";
+
+interface Marker {
+  latLng: [number, number];
+  name: string;
+  r?: number;
+  style?: {
+    fill: string;
+    borderWidth: number;
+    borderColor: string;
+    stroke?: string;
+    strokeOpacity?: number;
+  };
+}
+
 export default function DemographicCard() {
   const [isOpen, setIsOpen] = useState(false);
-  const [locations, setLocations] = useState([]);
+
+  // Set explicit type for locations state to Marker[]
+  const [locations, setLocations] = useState<Marker[]>([]);
 
   function toggleDropdown() {
     setIsOpen(!isOpen);
@@ -17,8 +34,11 @@ export default function DemographicCard() {
   useEffect(() => {
     const fetchUserLocations = async () => {
       try {
-        const res = await fetch("https://shreejighutargo21.onrender.com/api/users/user-locations"); // Replace with your actual endpoint
+        const res = await fetch(
+          "https://shreejighutargo21.onrender.com/api/users/user-locations"
+        ); // Replace with your actual endpoint
         const data = await res.json();
+
         const locationPromises = data.users.map(async (user: any) => {
           const address = user.lastLogin?.location;
           if (address) {
@@ -31,15 +51,18 @@ export default function DemographicCard() {
             if (geoData && geoData.length > 0) {
               const { lat, lon } = geoData[0];
               return {
-                latLng: [parseFloat(lat), parseFloat(lon)],
+                latLng: [parseFloat(lat), parseFloat(lon)] as [number, number],
                 name: user.email,
+                r: 4, // optional radius
               };
             }
           }
           return null;
         });
 
-        const markers = (await Promise.all(locationPromises)).filter(Boolean);
+        const markers = (await Promise.all(locationPromises)).filter(
+          (marker): marker is Marker => marker !== null
+        );
         setLocations(markers);
       } catch (error) {
         console.error("Failed to fetch locations", error);
@@ -60,28 +83,10 @@ export default function DemographicCard() {
             Number of customer based on country
           </p>
         </div>
-        <div className="relative inline-block">
-          {/* <button onClick={toggleDropdown} className="dropdown-toggle">
-            <MoreDotIcon className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" />
-          </button>
-          <Dropdown isOpen={isOpen} onClose={closeDropdown} className="w-40 p-2">
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex w-full font-normal text-left text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-            >
-              View More
-            </DropdownItem>
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex w-full font-normal text-left text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-            >
-              Delete
-            </DropdownItem>
-          </Dropdown> */}
-        </div>
+        <div className="relative inline-block">{/* Dropdown code commented out */}</div>
       </div>
 
-      <div className="px-4 py-6 my-6 overflow-hidden border border-gary-200 rounded-2xl bg-gray-50 dark:border-gray-800 dark:bg-gray-900 sm:px-6">
+      <div className="px-4 py-6 my-6 overflow-hidden border border-gray-200 rounded-2xl bg-gray-50 dark:border-gray-800 dark:bg-gray-900 sm:px-6">
         <div
           id="mapOne"
           className="mapOne map-btn -mx-4 -my-6 h-[212px] w-[252px] 2xsm:w-[307px] xsm:w-[358px] sm:-mx-6 md:w-[668px] lg:w-[634px] xl:w-[393px] 2xl:w-[554px]"

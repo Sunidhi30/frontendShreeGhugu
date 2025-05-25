@@ -2,9 +2,9 @@
 
 'use client';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
 type Series = {
   _id: string;
   title: string;
@@ -47,8 +47,6 @@ const [status, setStatus] = useState<'approved' | 'pending' | 'rejected'>('pendi
     try {
       setLoading(true);
       const data = await fetchSeriesByApproval(status);
-      console.log('Raw API response:', data.series);
-
       setSeries(data);
       setError(null);
     } catch (err) {
@@ -64,7 +62,23 @@ const [status, setStatus] = useState<'approved' | 'pending' | 'rejected'>('pendi
     router.push(`/tvshowsid/${showid}`);
   };
 
+  // useEffect(() => {
+  //   loadSeries();
+  // }, [status]);
   useEffect(() => {
+    const loadSeries = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchSeriesByApproval(status);
+        setSeries(data);
+        setError(null);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
     loadSeries();
   }, [status]);
 
@@ -147,7 +161,7 @@ const [status, setStatus] = useState<'approved' | 'pending' | 'rejected'>('pendi
                   <tr key={seriesItem._id} className="hover:bg-gray-100 dark:hover:bg-gray-800">
                     <td className="py-4 px-6 whitespace-nowrap">
                       <div className="flex items-center space-x-3">
-                        <img
+                        <Image
                           src={seriesItem.thumbnail}
                           alt={seriesItem.title}
                           className="w-12 h-16 rounded object-cover"
@@ -217,7 +231,7 @@ const [status, setStatus] = useState<'approved' | 'pending' | 'rejected'>('pendi
                 className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow p-4"
               >
                 <div className="flex space-x-4">
-                  <img
+                  <Image
                     src={seriesItem.thumbnail}
                     alt={seriesItem.title}
                     className="w-20 h-28 rounded object-cover flex-shrink-0"

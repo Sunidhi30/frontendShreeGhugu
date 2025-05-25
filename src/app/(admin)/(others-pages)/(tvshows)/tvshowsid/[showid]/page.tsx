@@ -3,7 +3,7 @@
 
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-
+import Image from 'next/image';
 // Update types to match your API response
 type Episode = {
   _id: string;
@@ -106,7 +106,7 @@ export default function TVShowDetailsPage() {
 //       </button>
 
 //       <div className="flex gap-6">
-//         <img src={tvShow.thumbnail} alt={tvShow.title} className="w-48 h-64 rounded-lg object-cover" />
+//         <Image src={tvShow.thumbnail} alt={tvShow.title} className="w-48 h-64 rounded-lg object-cover" />
 //         <div>
 //           <h1 className="text-4xl font-bold">{tvShow.title}</h1>
 //           <p className="mt-2 text-gray-600">{tvShow.description}</p>
@@ -167,7 +167,7 @@ export default function TVShowDetailsPage() {
     </button>
 
     <div className="flex flex-col sm:flex-row gap-6">
-      <img
+      <Image
         src={tvShow.thumbnail}
         alt={tvShow.title}
         className="w-full sm:w-48 h-64 rounded-lg object-cover flex-shrink-0"

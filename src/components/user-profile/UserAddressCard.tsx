@@ -1,4 +1,3 @@
-
 "use client";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -7,6 +6,22 @@ import Label from "../form/Label";
 import Input from "../form/input/InputField";
 import Button from "../ui/button/Button";
 import { Modal } from "../ui/modal";
+
+interface Package {
+  _id: string;
+  name: string;
+  description: string;
+  revenueType: string;
+  price: number;
+  rentalDuration: number;
+  viewThreshold: number;
+  category: string;
+}
+
+interface Category {
+  _id: string;
+  name: string;
+}
 
 export default function VendorPackageCard() {
   const { isOpen, openModal, closeModal } = useModal();
@@ -22,8 +37,8 @@ export default function VendorPackageCard() {
     category: "", // added for category
   });
 
-  const [packages, setPackages] = useState([]);
-  const [categories, setCategories] = useState([]); // 🔸 for category list
+  const [packages, setPackages] = useState<Package[]>(([]));
+  const [categories, setCategories] = useState<Category[]>([]); // 🔸 for category list
   const [errorMessage, setErrorMessage] = useState("");
 
   // 🔸 Fetch categories (NO TOKEN NEEDED)
@@ -88,14 +103,14 @@ export default function VendorPackageCard() {
         category: "",
       });
       setErrorMessage("");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error saving package:", error);
       const serverMessage = error.response?.data?.message;
       setErrorMessage(serverMessage || "Failed to create package. Please try again.");
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -137,14 +152,16 @@ export default function VendorPackageCard() {
           </div>
 
           <div className="lg:w-1/3 mt-4 lg:mt-0">
-            <Button
-              variant="default"
-              size="lg"
-              className="w-full dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
-              onClick={handleOpenModal}
-            >
-              + Create New Package
-            </Button>
+          <Button
+  variant="primary"  // or "outline" if that fits your style better
+  size="md"  // medium size, closest to large if you want bigger button
+
+  className="w-full dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+  onClick={handleOpenModal}
+>
+  + Create New Package
+</Button>
+
           </div>
         </div>
       </div>

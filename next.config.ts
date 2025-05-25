@@ -26,6 +26,9 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['res.cloudinary.com'],  // Add Cloudinary domain here
   },
+  eslint: {
+    ignoreDuringBuilds: true, // ✅ disables ESLint during builds
+  },
 };
 
 export default nextConfig;

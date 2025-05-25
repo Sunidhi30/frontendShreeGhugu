@@ -5,7 +5,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { FiUpload } from 'react-icons/fi';
-
+import Image from 'next/image';
 export default function UploadSeriesForm() {
   const [form, setForm] = useState({
     title: '',
@@ -213,7 +213,7 @@ export default function UploadSeriesForm() {
                 </label>
                 <div className="border-2 border-dashed rounded-lg p-4 text-center">
                   {thumbnailPreview ? (
-                    <img src={thumbnailPreview} alt="Thumbnail" className="mx-auto h-32" />
+                    <Image src={thumbnailPreview} alt="Thumbnail" className="mx-auto h-32" />
                   ) : (
                     <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
                   )}
@@ -227,7 +227,7 @@ export default function UploadSeriesForm() {
                 </label>
                 <div className="border-2 border-dashed rounded-lg p-4 text-center">
                   {landscapePreview ? (
-                    <img src={landscapePreview} alt="Landscape" className="mx-auto h-32" />
+                    <Image src={landscapePreview} alt="Landscape" className="mx-auto h-32" />
                   ) : (
                     <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
                   )}
