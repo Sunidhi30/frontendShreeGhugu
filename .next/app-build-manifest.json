@@ -16,20 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/layout.js"
     ],
-    "/(admin)/(others-pages)/(series)/upload/page": [
+    "/(admin)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/(others-pages)/(series)/upload/page.js"
-    ],
-    "/(admin)/(others-pages)/(tvshows)/uploadtvshow/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/(others-pages)/(tvshows)/uploadtvshow/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/(admin)/page.js"
     ],
     "/(admin)/(others-pages)/(transactions)/transactionsall/error": [
       "static/chunks/webpack.js",
@@ -47,30 +37,21 @@
       "static/css/app/(admin)/(others-pages)/(transactions)/transactionsall/page.css",
       "static/chunks/app/(admin)/(others-pages)/(transactions)/transactionsall/page.js"
     ],
-    "/(full-width-pages)/layout": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(full-width-pages)/layout.js"
+      "static/chunks/app/_not-found/page.js"
     ],
-    "/(full-width-pages)/(auth)/layout": [
+    "/(admin)/(others-pages)/transactionsHistory/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(full-width-pages)/(auth)/layout.js"
+      "static/css/app/(admin)/(others-pages)/transactionsHistory/page.css",
+      "static/chunks/app/(admin)/(others-pages)/transactionsHistory/page.js"
     ],
-    "/(full-width-pages)/(auth)/signin/page": [
+    "/(admin)/(others-pages)/profile/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(full-width-pages)/(auth)/signin/page.js"
-    ],
-    "/(admin)/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/page.js"
-    ],
-    "/(admin)/(others-pages)/edit-profile/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/(others-pages)/edit-profile/page.js"
+      "static/chunks/app/(admin)/(others-pages)/profile/page.js"
     ]
   }
 }

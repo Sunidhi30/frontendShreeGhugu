@@ -15,9 +15,9 @@ import Rejected from "@/components/tables/rejected";
 
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Ghutargoo",
+  title: "Gutargoo",
   description:
-    "Ghutargoo",
+    "Gutargoo",
   // other metadata
 };
 

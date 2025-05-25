@@ -1,188 +1,175 @@
-// "use client";
-// import { ApexOptions } from "apexcharts";
-// import dynamic from "next/dynamic";
-// import { MoreDotIcon } from "@/icons";
-// import { DropdownItem } from "../ui/dropdown/DropdownItem";
-// import { useState } from "react";
-// import { Dropdown } from "../ui/dropdown/Dropdown";
 
-// // Dynamically import the ReactApexChart component
-// const ReactApexChart = dynamic(() => import("react-apexcharts"), {
-//   ssr: false,
-// });
-
-// export default function MonthlySalesChart() {
-//   const options: ApexOptions = {
-//     colors: ["#465fff"],
-//     chart: {
-//       fontFamily: "Outfit, sans-serif",
-//       type: "bar",
-//       height: 180,
-//       toolbar: {
-//         show: false,
-//       },
-//     },
-//     plotOptions: {
-//       bar: {
-//         horizontal: false,
-//         columnWidth: "39%",
-//         borderRadius: 5,
-//         borderRadiusApplication: "end",
-//       },
-//     },
-//     dataLabels: {
-//       enabled: false,
-//     },
-//     stroke: {
-//       show: true,
-//       width: 4,
-//       colors: ["transparent"],
-//     },
-//     xaxis: {
-//       categories: [
-//         "Jan",
-//         "Feb",
-//         "Mar",
-//         "Apr",
-//         "May",
-//         "Jun",
-//         "Jul",
-//         "Aug",
-//         "Sep",
-//         "Oct",
-//         "Nov",
-//         "Dec",
-//       ],
-//       axisBorder: {
-//         show: false,
-//       },
-//       axisTicks: {
-//         show: false,
-//       },
-//     },
-//     legend: {
-//       show: true,
-//       position: "top",
-//       horizontalAlign: "left",
-//       fontFamily: "Outfit",
-//     },
-//     yaxis: {
-//       title: {
-//         text: undefined,
-//       },
-//     },
-//     grid: {
-//       yaxis: {
-//         lines: {
-//           show: true,
-//         },
-//       },
-//     },
-//     fill: {
-//       opacity: 1,
-//     },
-
-//     tooltip: {
-//       x: {
-//         show: false,
-//       },
-//       y: {
-//         formatter: (val: number) => `${val}`,
-//       },
-//     },
-//   };
-//   const series = [
-//     {
-//       name: "Sales",
-//       data: [168, 385, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112],
-//     },
-//   ];
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   function toggleDropdown() {
-//     setIsOpen(!isOpen);
-//   }
-
-//   function closeDropdown() {
-//     setIsOpen(false);
-//   }
-
-//   return (
-//     <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-5 pt-5 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6 sm:pt-6">
-//       <div className="flex items-center justify-between">
-//         <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
-//           Monthly Sales
-//         </h3>
-
-//         <div className="relative inline-block">
-//           <button onClick={toggleDropdown} className="dropdown-toggle">
-//             <MoreDotIcon className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" />
-//           </button>
-//           <Dropdown
-//             isOpen={isOpen}
-//             onClose={closeDropdown}
-//             className="w-40 p-2"
-//           >
-//             <DropdownItem
-//               onItemClick={closeDropdown}
-//               className="flex w-full font-normal text-left text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-//             >
-//               View More
-//             </DropdownItem>
-//             <DropdownItem
-//               onItemClick={closeDropdown}
-//               className="flex w-full font-normal text-left text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-//             >
-//               Delete
-//             </DropdownItem>
-//           </Dropdown>
-//         </div>
-//       </div>
-
-//       <div className="max-w-full overflow-x-auto custom-scrollbar">
-//         <div className="-ml-5 min-w-[650px] xl:min-w-full pl-2">
-//           <ReactApexChart
-//             options={options}
-//             series={series}
-//             type="bar"
-//             height={180}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 "use client";
 
-import { MoreDotIcon } from "@/icons";
 import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
-import { Dropdown } from "../ui/dropdown/Dropdown";
-import { DropdownItem } from "../ui/dropdown/DropdownItem";
+import { useEffect, useRef, useState } from "react";
+import toast from "react-hot-toast";
 
-// Dynamically import the ReactApexChart component
+// Dynamically import ApexChart
 const ReactApexChart = dynamic(() => import("react-apexcharts"), {
   ssr: false,
 });
 
+// Simple 3-dot icon component (inline SVG)
+function MoreDotIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2}
+      viewBox="0 0 24 24"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="w-6 h-6"
+    >
+      <circle cx={12} cy={5} r={1.5} />
+      <circle cx={12} cy={12} r={1.5} />
+      <circle cx={12} cy={19} r={1.5} />
+    </svg>
+  );
+}
+
+// Dropdown wrapper component
+function Dropdown({
+  isOpen,
+  onClose,
+  children,
+  className = "",
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
+        onClose();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div
+      ref={ref}
+      className={`absolute right-0 mt-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg z-50 ${className}`}
+      style={{ minWidth: 160 }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// Dropdown item component
+function DropdownItem({
+  onItemClick,
+  children,
+  className = "",
+}: {
+  onItemClick: () => void;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <button
+      onClick={onItemClick}
+      className={`w-full text-left px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none ${className}`}
+      type="button"
+    >
+      {children}
+    </button>
+  );
+}
+
 export default function MonthlySalesChart() {
   const [userData, setUserData] = useState(Array(12).fill(0));
-  const [isOpen, setIsOpen] = useState(false);
+  const [target, setTarget] = useState<number>(0);
+  const [inputTarget, setInputTarget] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRange, setSelectedRange] = useState(12);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch("http://localhost:9000/api/admin/users-monthly-count");
-        const data = await res.json();
-        setUserData(data.monthlyData);
+        const userRes = await fetch("https://shreejighutargo21.onrender.com/api/admin/users-monthly-count");
+        const userData = await userRes.json();
+        setUserData(userData.monthlyData);
+
+        if (token) {
+          const targetRes = await fetch("https://shreejighutargo21.onrender.com/api/vendors/get-target-users", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const targetData = await targetRes.json();
+          if (targetData.success) {
+            setTarget(targetData.monthly_target_users);
+          }
+        }
       } catch (error) {
-        console.error("Failed to fetch user data:", error);
+        console.error("Fetch error:", error);
       }
     };
 
-    fetchUserData();
-  }, []);
+    fetchData();
+  }, [token]);
+
+  const handleTargetSubmit = async () => {
+    const numTarget = parseInt(inputTarget);
+    if (isNaN(numTarget)) {
+      toast.error("Please enter a valid number");
+      return;
+    }
+
+    try {
+      const res = await fetch("https://shreejighutargo21.onrender.com/api/vendors/set-target-users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ target: numTarget }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setTarget(data.monthly_target_users);
+        toast.success(data.message);
+        setIsModalOpen(false);
+        setInputTarget("");
+      } else {
+        toast.error(data.message || "Failed to update target");
+      }
+    } catch (err) {
+      toast.error("Server error");
+    }
+  };
+
+  // Dropdown toggle
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
+  const closeDropdown = () => setDropdownOpen(false);
+
+  // Open modal on clicking "Set Target"
+  const handleSetTargetClick = () => {
+    setIsModalOpen(true);
+    closeDropdown();
+  };
 
   const options: ApexOptions = {
     colors: ["#465fff"],
@@ -202,6 +189,22 @@ export default function MonthlySalesChart() {
         borderRadiusApplication: "end",
       },
     },
+    annotations: {
+      yaxis: [
+        {
+          y: target,
+          borderColor: "#FF4560",
+          label: {
+            borderColor: "#FF4560",
+            style: {
+              color: "#fff",
+              background: "#FF4560",
+            },
+            text: `Target: ${target}`,
+          },
+        },
+      ],
+    },
     dataLabels: {
       enabled: false,
     },
@@ -215,96 +218,82 @@ export default function MonthlySalesChart() {
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
       ],
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
-    },
-    legend: {
-      show: true,
-      position: "top",
-      horizontalAlign: "left",
-      fontFamily: "Outfit",
     },
     yaxis: {
       title: {
         text: undefined,
       },
     },
-    grid: {
-      yaxis: {
-        lines: {
-          show: true,
-        },
-      },
-    },
-    fill: {
-      opacity: 1,
-    },
     tooltip: {
-      x: {
-        show: false,
-      },
       y: {
         formatter: (val: number) => `${val}`,
       },
     },
   };
 
-  const series = [
-    {
-      name: "Users",
-      data: userData,
-    },
-  ];
-
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  const closeDropdown = () => setIsOpen(false);
+  const series = [{ name: "Users", data: userData }];
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white px-5 pt-5 dark:border-gray-800 dark:bg-white/[0.03] sm:px-6 sm:pt-6">
-      <div className="flex items-center justify-between">
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03] relative">
+      <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">
           Monthly User Signups
         </h3>
 
-        <div className="relative inline-block">
-          <button onClick={toggleDropdown} className="dropdown-toggle">
-            <MoreDotIcon className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" />
-          </button>
-          <Dropdown
-            isOpen={isOpen}
-            onClose={closeDropdown}
-            className="w-40 p-2"
-          >
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex w-full font-normal text-left text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-            >
+        {/* Dropdown button */}
+        <div className="relative inline-block dark:text-white/100">
+        <button onClick={toggleDropdown} className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+  <MoreDotIcon />
+</button>
+
+          <Dropdown isOpen={dropdownOpen} onClose={closeDropdown}>
+            {/* Dropdown items */}
+            <DropdownItem onItemClick={handleSetTargetClick}>
+              Set Target
+            </DropdownItem>
+
+            {/* You can add more items here if needed */}
+            {/* Example:
+            <DropdownItem onItemClick={() => { alert('View More'); closeDropdown(); }}>
               View More
-            </DropdownItem>
-            <DropdownItem
-              onItemClick={closeDropdown}
-              className="flex w-full font-normal text-left text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
-            >
-              Delete
-            </DropdownItem>
+            </DropdownItem> */}
           </Dropdown>
         </div>
       </div>
 
-      <div className="max-w-full overflow-x-auto custom-scrollbar">
-        <div className="-ml-5 min-w-[650px] xl:min-w-full pl-2">
-          <ReactApexChart
-            options={options}
-            series={series}
-            type="bar"
-            height={180}
-          />
+      <ReactApexChart options={options} series={series} type="bar" height={180} />
+
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray/50">
+          <div className="bg-white dark:bg-gray-900 rounded-xl p-6 w-80 space-y-4 shadow-lg">
+            <h4 className="text-lg font-bold text-gray-800 dark:text-white">
+              Set Target for Last {selectedRange} Months
+            </h4>
+            <input
+              type="number"
+              value={inputTarget}
+              onChange={(e) => setInputTarget(e.target.value)}
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring"
+              placeholder="Enter user target"
+            />
+            <div className="flex justify-end space-x-2">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-3 py-1 text-gray-600 hover:text-black"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleTargetSubmit}
+                className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

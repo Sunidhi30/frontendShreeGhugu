@@ -6,9 +6,9 @@ import TwoColumnImageGrid from "@/components/ui/images/TwoColumnImageGrid";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ghutargooo || admin",
+  title: "Gutargooo",
   description:
-    "Ghutargoo",
+    "Gutargoo",
   // other metadata
 };
 

@@ -14,8 +14,8 @@ import {
   UserCircleIcon,
   VideoIcon
 } from "../icons/index";
-
- 
+// import { IoIosListBox } from "react-icons/io";
+import { VscExtensions } from "react-icons/vsc";
 
 
 import SidebarWidget from "./SidebarWidget";
@@ -49,7 +49,7 @@ const navItems: NavItem[] = [
     icon: <VideoIcon />,
     subItems: [{ name: "Movies List", path: "/basic-videos", pro: false },
     { name: "Movies Status", path: "/reject-videos", pro: false },
-    { name: "Add Movies", path: "/calendar", pro: false }],
+    { name: "Add Movies", path: "/addMovies", pro: false }],
     // { name: "Movies Category", path: "/category", pro: false }],
     
   },
@@ -57,6 +57,7 @@ const navItems: NavItem[] = [
     name: "Web-Series",
     icon: <CalenderIcon />,
     subItems: [
+      { name: "List of Series", path: "/getlistofseries", pro: false },
       { name: "Add Series", path: "/upload", pro: false },
       { name: "Add Season", path: "/season", pro: false },
       { name: "Add Episode", path: "/episode", pro: false },
@@ -66,19 +67,36 @@ const navItems: NavItem[] = [
     name: "Tv-shows",
     icon: <TableIcon />,
     subItems: [
+      { name: "List Tvs-show", path: "/listoftvshows", pro: false },
       { name: "Add TV-Show", path: "/uploadtvshow", pro: false },
       { name: "Add Season", path: "/uploadtvshowSeason", pro: false },
       { name: "Add Episode", path: "/uploadtvshowEpisode", pro: false },
     ],
   },
+ 
+  // {
+  //   name: "Shorts",
+  //   icon: <BsReverseLayoutTextWindowReverse size={20} style={{ marginLeft: '4px' }} />,
+  //   subItems: [
+  //     { name: "Add Shorts", path: "/uploadtvshow", pro: false },
+  //   ],
+  // },
   {
     name: "Transactions",
-    icon: <GridIcon />,
+    icon: <VscExtensions size={20} style={{ marginLeft: '4px' }}/>,
     subItems: [
-      { name: "History", path: "/transactionsall", pro: false },
+      { name: "Informations", path: "/transactionsall", pro: false },
+      { name: "History", path: "/transactionsHistory", pro: false },
 
     ],
   },
+  // {
+  //   name: "Contest",
+  //   icon: <TableIcon />,
+  //   subItems: [
+  //     { name: "Add Shorts", path: "/uploadtvshow", pro: false },
+  //   ],
+  // },
  
   {
     icon: <InfoIcon  />,
@@ -343,7 +361,7 @@ const AppSidebar: React.FC = () => {
       onMouseLeave={() => setIsHovered(false)}
     >
 
-      <div
+      {/* <div
   className={`py-8 flex ${
     !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
   }`}
@@ -367,7 +385,38 @@ const AppSidebar: React.FC = () => {
       GutargooPlus
     </span>
   </Link>
+</div> */}
+<div
+  className={`py-8 flex ${
+    !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"
+  }`}
+>
+  <Link href="/">
+    <span className="flex items-center text-2xl font-bold text-black dark:text-white transition-colors">
+      {/* Logo image */}
+      <Image
+        className="hidden dark:block"
+        src="/images/logo/logo21.svg"
+        alt="Logo"
+        width={24}
+        height={24}
+      />
+      <Image
+        className="dark:hidden"
+        src="/images/logo/logo21.svg"
+        alt="Logo"
+        width={60}
+        height={20}
+      />
+      
+      {/* Conditionally render the text only if sidebar is expanded */}
+      {(isExpanded || isHovered) && (
+        <span className="ml-2">GutargooPlus</span>
+      )}
+    </span>
+  </Link>
 </div>
+
       {/* <div
   className={`py-8 flex ${
     !isExpanded && !isHovered ? "lg:justify-center" : "justify-start"

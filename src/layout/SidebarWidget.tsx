@@ -9,7 +9,7 @@ export default function SidebarWidget() {
         Premium Plans
       </h3>
       <p className="mb-4 text-gray-500 text-theme-sm dark:text-gray-400">
-       Ghutargooo is done
+       Gutargoo is done
       </p>
       <a
         href="http://infyle.in/"

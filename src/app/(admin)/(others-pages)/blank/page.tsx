@@ -2,8 +2,8 @@ import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ghuatrgoo",
-  description: "Ghutargooe",
+  title: "gutargoo",
+  description: "Gutargoo",
 };
 
 export default function BlankPage() {

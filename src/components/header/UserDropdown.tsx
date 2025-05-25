@@ -203,7 +203,7 @@ export default function UserDropdown() {
         return;
       }
 
-      const response = await axios.get('http://localhost:9000/api/vendors/get-profile', {
+      const response = await axios.get('https://shreejighutargo21.onrender.com/api/vendors/get-profile', {
         headers: {
           Authorization: `Bearer ${token}`
         }

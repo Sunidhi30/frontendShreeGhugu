@@ -3,9 +3,9 @@ import PageBreadcrumb from "@/components/common/PageBreadCrumb";
 import Pagination from "@/components/tables/Pagination";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Ghutargoo",
+  title: "Gutargoo",
   description:
-    "Ghutargoo",
+    "Gutargoo",
   // other metadata
 };
 

@@ -91,7 +91,7 @@ export default function EpisodesPage() {
       setLoading(true);
       setError('');
       
-      const response = await axios.get('http://localhost:9000/api/vendors/tvshows', {
+      const response = await axios.get('https://shreejighutargo21.onrender.com/api/vendors/tvshows', {
         params: {
           page: pagination.page,
           limit: pagination.limit
@@ -123,7 +123,7 @@ export default function EpisodesPage() {
       return;
     }
 
-    axios.get(`http://localhost:9000/api/vendors/tvshows/${selectedShowId}/seasons`, {
+    axios.get(`https://shreejighutargo21.onrender.com/api/vendors/tvshows/${selectedShowId}/seasons`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -242,7 +242,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   
     try {
       const response = await axios.post(
-        'http://localhost:9000/api/vendors/tv-episodes',
+        'https://shreejighutargo21.onrender.com/api/vendors/tv-episodes',
         formData,
         {
           headers: {
@@ -289,198 +289,151 @@ const handleSubmit = async (e: React.FormEvent) => {
 
 return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Upload Episode</h1>
-  
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {/* TV Show and Season Selection */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Select TV Show</label>
-              <select
-                value={selectedShowId}
-                onChange={(e) => setSelectedShowId(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                required
-              >
-                <option value="">Choose a TV Show</option>
-                {tvShows.map((show) => (
-                  <option key={show._id} value={show._id}>
-                    {show.title}
-                  </option>
-                ))}
-              </select>
-            </div>
-  
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Select Season</label>
-              <select
-                value={selectedSeasonId}
-                onChange={(e) => setSelectedSeasonId(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                required
-                disabled={!selectedShowId}
-              >
-                <option value="">Choose a Season</option>
-                {seasons.map((season) => (
-                  <option key={season._id} value={season._id}>
-                    {season.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+      {/* <div className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Upload Episode</h1> */}
+        
+  <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Upload Episode</h1>
+
+      <form onSubmit={handleSubmit}>
+        {/* TV Show and Season Selection */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
+              Select TV Show<span className="text-red-500">*</span>
+            </label>
+            <select
+              value={selectedShowId}
+              onChange={(e) => setSelectedShowId(e.target.value)}
+              required
+              className="w-full p-3 border border-blue-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            >
+              <option value="">Choose a TV Show</option>
+              {tvShows.map((show) => (
+                <option key={show._id} value={show._id}>{show.title}</option>
+              ))}
+            </select>
           </div>
-  
-          {/* Episode Details */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
+              Select Season<span className="text-red-500">*</span>
+            </label>
+            <select
+              value={selectedSeasonId}
+              onChange={(e) => setSelectedSeasonId(e.target.value)}
+              required
+              disabled={!selectedShowId}
+              className="w-full p-3 border border-blue-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100 disabled:dark:bg-gray-700"
+            >
+              <option value="">Choose a Season</option>
+              {seasons.map((season) => (
+                <option key={season._id} value={season._id}>{season.name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Episode Details */}
+        <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg mb-8">
+          <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Episode Details</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Episode Title</label>
+              <label className="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
+                Episode Title<span className="text-red-500">*</span>
+              </label>
               <input
                 type="text"
                 name="title"
                 value={episodeData.title}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
+                className="w-full p-3 border border-blue-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
             </div>
-  
+
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Episode Number</label>
+              <label className="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
+                Episode Number<span className="text-red-500">*</span>
+              </label>
               <input
                 type="number"
                 name="episode_number"
                 value={episodeData.episode_number}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
+                className="w-full p-3 border border-blue-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
             </div>
-  
-            <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Description</label>
-              <textarea
-                name="description"
-                value={episodeData.description}
-                onChange={handleChange}
-                rows={3}
-                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                required
-              />
-            </div>
-  
+
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Release Date</label>
+              <label className="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
+                Release Date<span className="text-red-500">*</span>
+              </label>
               <input
                 type="date"
                 name="release_date"
                 value={episodeData.release_date}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
                 required
-              />
-            </div>
-  
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Video Duration (seconds)</label>
-              <input
-                type="number"
-                name="video_duration"
-                value={episodeData.video_duration}
-                onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                required
+                className="w-full p-3 border border-blue-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
               />
             </div>
           </div>
-  
-          {/* Media Files */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white">Media Files</h3>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {Object.entries(files).map(([key, value]) => (
-                <div key={key}>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                    {key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ')}
-                  </label>
-                  <input
-                    type="file"
-                    name={key}
-                    onChange={handleFileChange}
-                    accept={key.includes('video') ? 'video/*' : 'image/*'}
-                    className="mt-1 block w-full text-gray-700 dark:text-gray-200"
-                    required={key === 'thumbnail'}
-                  />
-                </div>
-              ))}
-            </div>
+        </div>
+
+        {/* Description */}
+        <div className="mb-8">
+          <label className="block mb-2 font-semibold text-gray-700 dark:text-gray-200">
+            Description<span className="text-red-500">*</span>
+          </label>
+          <textarea
+            name="description"
+            value={episodeData.description}
+            onChange={handleChange}
+            rows={4}
+            required
+            className="w-full p-3 border border-blue-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Media Files */}
+        <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg mb-8">
+          <h3 className="text-xl font-bold mb-4 text-gray-800 dark:text-gray-100">Media Files</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {Object.entries(files).map(([key]) => (
+              <div key={key}>
+                <label className="block mb-2 font-semibold text-gray-700 dark:text-gray-200 capitalize">
+                  {key.replace(/_/g, ' ')}{key === 'thumbnail' && <span className="text-red-500">*</span>}
+                </label>
+                <input
+                  type="file"
+                  name={key}
+                  onChange={handleFileChange}
+                  accept={key.includes('video') ? 'video/*' : 'image/*'}
+                  required={key === 'thumbnail'}
+                  className="w-full p-3 border border-blue-300 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white dark:border-gray-600 
+                    file:bg-blue-50 dark:file:bg-gray-700 file:text-blue-500 dark:file:text-white file:font-semibold file:border-0 file:mr-4"
+                />
+              </div>
+            ))}
           </div>
-  
-          {/* Additional Settings */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Is Premium</label>
-              <select
-                name="is_premium"
-                value={episodeData.is_premium}
-                onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              >
-                <option value="0">No</option>
-                <option value="1">Yes</option>
-              </select>
-            </div>
-  
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Is Rentable</label>
-              <select
-                name="is_rent"
-                value={episodeData.is_rent}
-                onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              >
-                <option value="0">No</option>
-                <option value="1">Yes</option>
-              </select>
-            </div>
-  
-            {episodeData.is_rent === "1" && (
-              <>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Price</label>
-                  <input
-                    type="number"
-                    name="price"
-                    value={episodeData.price}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-200">Rent Days</label>
-                  <input
-                    type="number"
-                    name="rent_day"
-                    value={episodeData.rent_day}
-                    onChange={handleChange}
-                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                  />
-                </div>
-              </>
-            )}
-          </div>
-  
-          {/* Submit Button */}
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Upload Episode
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+        {/* Submit Button */}
+        <div className="text-center">
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-md transition duration-200 ease-in-out transform hover:scale-105"
+          >
+            Upload Episode
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
+
+
+      </div>
   );
 }

@@ -31,7 +31,7 @@ export default function VideosByCategory() {
     const fetchVideos = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`http://localhost:9000/api/vendors/videos/category/${savedCategoryId}`, {
+        const res = await fetch(`https://shreejighutargo21.onrender.com/api/vendors/videos/category/${savedCategoryId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

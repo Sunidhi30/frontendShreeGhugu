@@ -4,9 +4,9 @@ import { PlusIcon } from "@/icons";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ghutargoo",
+  title: "Gutargoo",
   description:
-    "Ghutargoo",
+    "Gutargoo",
   // other metadata
 };
 

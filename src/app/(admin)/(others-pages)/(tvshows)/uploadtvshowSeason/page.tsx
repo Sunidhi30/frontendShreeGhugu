@@ -101,7 +101,7 @@ export default function UploadSeasonForm() {
 
   const fetchChannels = async (token: string) => {
     try {
-      const response = await axios.get('http://localhost:9000/api/vendors/get-channels', {
+      const response = await axios.get('https://shreejighutargo21.onrender.com/api/vendors/get-channels', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -141,7 +141,7 @@ export default function UploadSeasonForm() {
         params.channel_id = selectedChannel;
       }
       
-      const response = await axios.get('http://localhost:9000/api/vendors/tvshows', {
+      const response = await axios.get('https://shreejighutargo21.onrender.com/api/vendors/tvshows', {
         params,
         headers: {
           'Authorization': `Bearer ${token}`
@@ -170,7 +170,7 @@ export default function UploadSeasonForm() {
     try {
       setLoadingSeasons(true);
       const response = await axios.get(
-        `http://localhost:9000/api/vendors/tvshows/${showId}/seasons`,
+        `https://shreejighutargo21.onrender.com/api/vendors/tvshows/${showId}/seasons`,
         {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -242,7 +242,7 @@ export default function UploadSeasonForm() {
 
     try {
       const response = await axios.post(
-        `http://localhost:9000/api/vendors/tvshows/${selectedShowId}/seasons`,
+        `https://shreejighutargo21.onrender.com/api/vendors/tvshows/${selectedShowId}/seasons`,
         { seasons },
         {
           headers: {

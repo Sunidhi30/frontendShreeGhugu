@@ -8,8 +8,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "Ghuatrgoo || Infyle",
-  description: "This is website for the Ghutargoo",
+    "Gutargoo",
+  description: "This is website for the Gutargoo",
 };
 
 export default function Ecommerce() {

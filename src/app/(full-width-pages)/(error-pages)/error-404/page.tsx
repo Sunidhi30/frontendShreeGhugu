@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Ghutargoo",
+  title: "Gutargoo",
   description:
-    "Ghutargoo is good",
+    "Gutargoo is good",
 };
 
 export default function Error404() {

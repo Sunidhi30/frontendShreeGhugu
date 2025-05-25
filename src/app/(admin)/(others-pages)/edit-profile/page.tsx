@@ -26,7 +26,7 @@ export default function EditProfilePage() {
     async function fetchVendorProfile() {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:9000/api/vendors/get-profile', {
+        const res = await fetch('https://shreejighutargo21.onrender.com/api/vendors/get-profile', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -85,7 +85,7 @@ export default function EditProfilePage() {
       if (formData.password) form.append('password', formData.password);
       if (imageFile) form.append('image', imageFile);
 
-      const res = await fetch('http://localhost:9000/api/vendors/update-profile', {
+      const res = await fetch('https://shreejighutargo21.onrender.com/api/vendors/update-profile', {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -114,145 +114,293 @@ export default function EditProfilePage() {
     }
   };
 
-  return (
-    <div className="max-w-4xl mx-auto mt-10 p-6 space-y-8">
-      <h2 className="text-2xl font-semibold dark:text-white">Vendor Profile</h2>
+//   return (
+//     <div className="max-w-4xl mx-auto mt-10 p-6 space-y-8">
+//       <h2 className="text-2xl font-semibold dark:text-white">Vendor Profile</h2>
 
-      <div className="flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <img
-            src={formData.image || defaultImage}
-            alt="Profile"
-            className="w-24 h-24 rounded-full object-cover border-2 border-gray-300"
+//       <div className="flex justify-between items-center">
+//         <div className="flex items-center space-x-4">
+//           <img
+//             src={formData.image || defaultImage}
+//             alt="Profile"
+//             className="w-24 h-24 rounded-full object-cover border-2 border-gray-300"
+//           />
+//           <div>
+//             <h3 className="text-xl font-semibold dark:text-white">{formData.username}</h3>
+//             <p className="text-sm dark:text-white">{formData.fullName}</p>
+//             <p className="text-sm dark:text-white">Status: {formData.status}</p>
+//           </div>
+//         </div>
+//         <button
+//           type="button"
+//           onClick={() => setEditMode(prev => !prev)}
+//           className="text-blue-500 hover:underline flex items-center space-x-1"
+//         >
+//           <PencilIcon className="h-4 w-4" />
+//           <span className="dark:text-white">{editMode ? 'Cancel' : 'Edit'}</span>
+//         </button>
+//       </div>
+
+//       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
+//         <h4 className="text-md font-medium dark:text-white">Account Info</h4>
+//         <div className="grid grid-cols-2 gap-4 text-sm dark:text-white">
+//           <div><strong>Full Name:</strong> {formData.fullName}</div>
+//           <div><strong>Email:</strong> {formData.email}</div>
+//           <div><strong>Status:</strong> {formData.status}</div>
+//         </div>
+//       </div>
+
+//       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
+//         <h4 className="text-md font-medium dark:text-white">Account Stats</h4>
+//         <div className="grid grid-cols-2 gap-4 text-sm dark:text-white">
+//           <div><strong>Total Users:</strong> {formData.totalUsers}</div>
+//           <div><strong>Total Videos:</strong> {formData.totalVideos}</div>
+//           <div><strong>Total Views:</strong> {formData.totalViews}</div>
+//           <div><strong>Wallet Balance:</strong> ${formData.wallet}</div>
+//           <div><strong>Locked Balance:</strong> ${formData.lockedBalance}</div>
+//         </div>
+//       </div>
+
+//       {editMode && (
+//         <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
+//           <h4 className="text-md font-medium dark:text-white">Edit Profile</h4>
+//           <div className="grid grid-cols-2 gap-4">
+//             <input
+//               name="username"
+//               placeholder="Username"
+//               value={formData.username}
+//               onChange={handleChange}
+//               className="border p-2 rounded focus:ring-2 focus:ring-blue-500"
+//             />
+//             <input
+//               name="email"
+//               type="email"
+//               value={formData.email}
+//               onChange={handleChange}
+//               className="border p-2 rounded focus:ring-2 focus:ring-blue-500"
+//             />
+//             <input
+//               name="fullName"
+//               placeholder="Full Name"
+//               value={formData.fullName}
+//               onChange={handleChange}
+//               className="border p-2 rounded focus:ring-2 focus:ring-blue-500"
+//             />
+//             <input
+//               name="password"
+//               type="password"
+//               placeholder="New Password"
+//               value={formData.password}
+//               onChange={handleChange}
+//               className="border p-2 rounded focus:ring-2 focus:ring-blue-500"
+//             />
+//             <input
+//               type="file"
+//               accept="image/*"
+//               onChange={handleImageChange}
+//               className="border p-2 rounded col-span-2 focus:ring-2 focus:ring-blue-500"
+//             />
+//           </div>
+//           <button
+//             type="submit"
+//             disabled={loading}
+//             className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+//           >
+//             {loading ? 'Updating...' : 'Update Profile'}
+//           </button>
+//         </form>
+//       )}
+
+//       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
+//         <h4 className="text-md font-medium dark:text-white">Account Settings</h4>
+//         <ul className="space-y-2 text-sm dark:text-white">
+//           <li className="flex justify-between items-center">
+//             <span>Notification Preferences</span>
+//             <button className="text-blue-500 hover:underline">Manage</button>
+//           </li>
+//           <li className="flex justify-between items-center">
+//             <span>Change Password</span>
+//             <button className="text-blue-500 hover:underline">Update</button>
+//           </li>
+//           <li className="flex justify-between items-center">
+//             <span>Two-Factor Authentication</span>
+//             <button className="text-blue-500 hover:underline">Enable</button>
+//           </li>
+//           <li className="flex justify-between items-center">
+//             <span>Delete Account</span>
+//             <button className="text-red-500 hover:underline">Delete</button>
+//           </li>
+//         </ul>
+//       </div>
+
+//       <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
+//         <h4 className="text-md font-medium dark:text-white">Support</h4>
+//         <p className="text-sm dark:text-white">
+//           If you're facing issues or have any questions, feel free to contact our support team.
+//         </p>
+//         <ul className="space-y-2 text-sm dark:text-white">
+//           <li>
+//             📧 Email:{' '}
+//             <a href="mailto:support@example.com" className="text-blue-500 hover:underline">
+//               support@infyle.com
+//             </a>
+//           </li>
+//           <li>
+//             📞 Phone: <span className="text-gray-800 dark:text-white">+91 77078 32741</span>
+//           </li>
+//           <li>
+//             🕐 Support Hours: Mon - Sat, 10:00 AM to 6:00 PM
+//           </li>
+//         </ul>
+//       </div>
+//     </div>
+//   );
+// }
+return (
+  <div className="max-w-4xl mx-auto mt-6 p-4 space-y-8 sm:p-6">
+    <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Vendor Profile</h2>
+
+    {/* Header: Profile Image + Info + Edit Button */}
+    <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0 sm:space-x-6">
+      <div className="flex items-center space-x-4">
+        <img
+          src={formData.image || defaultImage}
+          alt="Profile"
+          className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
+        />
+        <div className="text-center sm:text-left">
+          <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">{formData.username}</h3>
+          <p className="text-sm text-gray-700 dark:text-gray-300">{formData.fullName}</p>
+          <p className="text-sm text-gray-700 dark:text-gray-300">Status: {formData.status}</p>
+        </div>
+      </div>
+      <button
+        type="button"
+        onClick={() => setEditMode(prev => !prev)}
+        className="flex items-center space-x-1 text-blue-600 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 rounded"
+      >
+        <PencilIcon className="h-5 w-5" />
+        <span className="text-sm dark:text-white">{editMode ? 'Cancel' : 'Edit'}</span>
+      </button>
+    </div>
+
+    {/* Account Info */}
+    <section className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md space-y-3">
+      <h4 className="text-md font-medium text-gray-900 dark:text-white">Account Info</h4>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
+        <div><strong>Full Name:</strong> {formData.fullName}</div>
+        <div><strong>Email:</strong> {formData.email}</div>
+        <div><strong>Status:</strong> {formData.status}</div>
+      </div>
+    </section>
+
+    {/* Account Stats */}
+    <section className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md space-y-3">
+      <h4 className="text-md font-medium text-gray-900 dark:text-white">Account Stats</h4>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
+        <div><strong>Total Users:</strong> {formData.totalUsers}</div>
+        <div><strong>Total Videos:</strong> {formData.totalVideos}</div>
+        <div><strong>Total Views:</strong> {formData.totalViews}</div>
+        <div><strong>Wallet Balance:</strong> ${formData.wallet}</div>
+        <div><strong>Locked Balance:</strong> ${formData.lockedBalance}</div>
+      </div>
+    </section>
+
+    {/* Edit Profile Form */}
+    {editMode && (
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md space-y-5 max-h-[70vh] overflow-y-auto"
+      >
+        <h4 className="text-md font-medium text-gray-900 dark:text-white">Edit Profile</h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <input
+            name="username"
+            placeholder="Username"
+            value={formData.username}
+            onChange={handleChange}
+            className="border border-gray-300 dark:border-gray-600 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
           />
-          <div>
-            <h3 className="text-xl font-semibold dark:text-white">{formData.username}</h3>
-            <p className="text-sm dark:text-white">{formData.fullName}</p>
-            <p className="text-sm dark:text-white">Status: {formData.status}</p>
-          </div>
+          <input
+            name="email"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="border border-gray-300 dark:border-gray-600 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+          />
+          <input
+            name="fullName"
+            placeholder="Full Name"
+            value={formData.fullName}
+            onChange={handleChange}
+            className="border border-gray-300 dark:border-gray-600 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+          />
+          <input
+            name="password"
+            type="password"
+            placeholder="New Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="border border-gray-300 dark:border-gray-600 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="border border-gray-300 dark:border-gray-600 p-2 rounded-md col-span-1 sm:col-span-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+          />
         </div>
         <button
-          type="button"
-          onClick={() => setEditMode(prev => !prev)}
-          className="text-blue-500 hover:underline flex items-center space-x-1"
+          type="submit"
+          disabled={loading}
+          className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition-colors duration-200 disabled:opacity-50"
         >
-          <PencilIcon className="h-4 w-4" />
-          <span className="dark:text-white">{editMode ? 'Cancel' : 'Edit'}</span>
+          {loading ? 'Updating...' : 'Update Profile'}
         </button>
-      </div>
+      </form>
+    )}
 
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
-        <h4 className="text-md font-medium dark:text-white">Account Info</h4>
-        <div className="grid grid-cols-2 gap-4 text-sm dark:text-white">
-          <div><strong>Full Name:</strong> {formData.fullName}</div>
-          <div><strong>Email:</strong> {formData.email}</div>
-          <div><strong>Status:</strong> {formData.status}</div>
-        </div>
-      </div>
+    {/* Account Settings */}
+    <section className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md space-y-3">
+      <h4 className="text-md font-medium text-gray-900 dark:text-white">Account Settings</h4>
+      <ul className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+        {[
+          { label: "Notification Preferences", action: "Manage", actionClass: "text-blue-500" },
+          { label: "Change Password", action: "Update", actionClass: "text-blue-500" },
+          { label: "Two-Factor Authentication", action: "Enable", actionClass: "text-blue-500" },
+          { label: "Delete Account", action: "Delete", actionClass: "text-red-500" },
+        ].map(({ label, action, actionClass }) => (
+          <li key={label} className="flex justify-between items-center">
+            <span>{label}</span>
+            <button className={`${actionClass} hover:underline focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 rounded`}>
+              {action}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
 
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
-        <h4 className="text-md font-medium dark:text-white">Account Stats</h4>
-        <div className="grid grid-cols-2 gap-4 text-sm dark:text-white">
-          <div><strong>Total Users:</strong> {formData.totalUsers}</div>
-          <div><strong>Total Videos:</strong> {formData.totalVideos}</div>
-          <div><strong>Total Views:</strong> {formData.totalViews}</div>
-          <div><strong>Wallet Balance:</strong> ${formData.wallet}</div>
-          <div><strong>Locked Balance:</strong> ${formData.lockedBalance}</div>
-        </div>
-      </div>
-
-      {editMode && (
-        <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
-          <h4 className="text-md font-medium dark:text-white">Edit Profile</h4>
-          <div className="grid grid-cols-2 gap-4">
-            <input
-              name="username"
-              placeholder="Username"
-              value={formData.username}
-              onChange={handleChange}
-              className="border p-2 rounded focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="border p-2 rounded focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              name="fullName"
-              placeholder="Full Name"
-              value={formData.fullName}
-              onChange={handleChange}
-              className="border p-2 rounded focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              name="password"
-              type="password"
-              placeholder="New Password"
-              value={formData.password}
-              onChange={handleChange}
-              className="border p-2 rounded focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="border p-2 rounded col-span-2 focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-          >
-            {loading ? 'Updating...' : 'Update Profile'}
-          </button>
-        </form>
-      )}
-
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
-        <h4 className="text-md font-medium dark:text-white">Account Settings</h4>
-        <ul className="space-y-2 text-sm dark:text-white">
-          <li className="flex justify-between items-center">
-            <span>Notification Preferences</span>
-            <button className="text-blue-500 hover:underline">Manage</button>
-          </li>
-          <li className="flex justify-between items-center">
-            <span>Change Password</span>
-            <button className="text-blue-500 hover:underline">Update</button>
-          </li>
-          <li className="flex justify-between items-center">
-            <span>Two-Factor Authentication</span>
-            <button className="text-blue-500 hover:underline">Enable</button>
-          </li>
-          <li className="flex justify-between items-center">
-            <span>Delete Account</span>
-            <button className="text-red-500 hover:underline">Delete</button>
-          </li>
-        </ul>
-      </div>
-
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md space-y-4">
-        <h4 className="text-md font-medium dark:text-white">Support</h4>
-        <p className="text-sm dark:text-white">
-          If you're facing issues or have any questions, feel free to contact our support team.
-        </p>
-        <ul className="space-y-2 text-sm dark:text-white">
-          <li>
-            📧 Email:{' '}
-            <a href="mailto:support@example.com" className="text-blue-500 hover:underline">
-              support@infyle.com
-            </a>
-          </li>
-          <li>
-            📞 Phone: <span className="text-gray-800 dark:text-white">+91 77078 32741</span>
-          </li>
-          <li>
-            🕐 Support Hours: Mon - Sat, 10:00 AM to 6:00 PM
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
+    {/* Support Section */}
+    <section className="bg-white dark:bg-gray-800 p-5 rounded-lg shadow-md space-y-3">
+      <h4 className="text-md font-medium text-gray-900 dark:text-white">Support</h4>
+      <p className="text-sm text-gray-700 dark:text-gray-300">
+        If you're facing issues or have any questions, feel free to contact our support team.
+      </p>
+      <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+        <li>
+          📧 Email:{' '}
+          <a href="mailto:support@example.com" className="text-blue-500 hover:underline">
+            support@infyle.com
+          </a>
+        </li>
+        <li>
+          📞 Phone: <span className="dark:text-gray-300">+91 77078 32741</span>
+        </li>
+        <li>
+          🕐 Support Hours: Mon - Sat, 10:00 AM to 6:00 PM
+        </li>
+      </ul>
+    </section>
+  </div>
+);
 }

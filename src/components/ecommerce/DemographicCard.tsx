@@ -1,9 +1,6 @@
 "use client";
-import { MoreDotIcon } from "@/icons";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Dropdown } from "../ui/dropdown/Dropdown";
-import { DropdownItem } from "../ui/dropdown/DropdownItem";
 import CountryMap from "./CountryMap";
 export default function DemographicCard() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +17,7 @@ export default function DemographicCard() {
   useEffect(() => {
     const fetchUserLocations = async () => {
       try {
-        const res = await fetch("http://localhost:9000/api/users/user-locations"); // Replace with your actual endpoint
+        const res = await fetch("https://shreejighutargo21.onrender.com/api/users/user-locations"); // Replace with your actual endpoint
         const data = await res.json();
         const locationPromises = data.users.map(async (user: any) => {
           const address = user.lastLogin?.location;
@@ -64,7 +61,7 @@ export default function DemographicCard() {
           </p>
         </div>
         <div className="relative inline-block">
-          <button onClick={toggleDropdown} className="dropdown-toggle">
+          {/* <button onClick={toggleDropdown} className="dropdown-toggle">
             <MoreDotIcon className="text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" />
           </button>
           <Dropdown isOpen={isOpen} onClose={closeDropdown} className="w-40 p-2">
@@ -80,7 +77,7 @@ export default function DemographicCard() {
             >
               Delete
             </DropdownItem>
-          </Dropdown>
+          </Dropdown> */}
         </div>
       </div>
 
@@ -108,10 +105,10 @@ export default function DemographicCard() {
             </div>
             <div>
               <p className="font-semibold text-gray-800 text-theme-sm dark:text-white/90">
-                USA
+                India
               </p>
               <span className="block text-gray-500 text-theme-xs dark:text-gray-400">
-                2,379 Customers
+                2 Users
               </span>
             </div>
           </div>
@@ -121,7 +118,7 @@ export default function DemographicCard() {
               <div className="absolute left-0 top-0 flex h-full w-[79%] items-center justify-center rounded-sm bg-brand-500 text-xs font-medium text-white"></div>
             </div>
             <p className="font-medium text-gray-800 text-theme-sm dark:text-white/90">
-              79%
+              80%
             </p>
           </div>
         </div>

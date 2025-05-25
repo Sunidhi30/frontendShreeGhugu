@@ -111,7 +111,7 @@ export default function StatisticsChart() {
 
   const series = [
     {
-      name: "Sales",
+      name: "Users",
       data: [180, 190, 170, 160, 175, 165, 170, 205, 230, 210, 240, 235],
     },
     {

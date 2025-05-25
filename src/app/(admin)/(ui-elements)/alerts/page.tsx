@@ -4,9 +4,9 @@ import Alert from "@/components/ui/alert/Alert";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ghutargooe",
+  title: "Gutargoo",
   description:
-    "Ghutargoo",
+    "Gutargoo",
   // other metadata
 };
 

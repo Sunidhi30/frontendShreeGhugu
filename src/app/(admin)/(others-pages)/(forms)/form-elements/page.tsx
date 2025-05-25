@@ -14,7 +14,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Ghutargo",
   description:
-    "This is the ghutargoo platform",
+    "This is the gutargoo platform",
 };
 
 export default function FormElements() {
