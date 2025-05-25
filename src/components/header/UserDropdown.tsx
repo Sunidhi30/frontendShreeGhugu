@@ -169,8 +169,8 @@ export default function UserDropdown() {
           <li>
             <DropdownItem
               onItemClick={() => {
-                closeDropdown();
-                // Add logout logic here if needed
+                localStorage.removeItem('token');
+                window.location.href = 'https://gutargoof.onrender.com/signin';
               }}
               tag="button"
               className="w-full flex items-center gap-3 px-3 py-2 font-medium text-red-600 rounded-lg group text-theme-sm hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-600 dark:hover:text-red-100"
@@ -208,6 +208,7 @@ export default function UserDropdown() {
               Logout
             </DropdownItem>
           </li>
+
         </ul>
       </Dropdown>
     </div>

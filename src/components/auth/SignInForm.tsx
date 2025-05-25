@@ -84,7 +84,7 @@ export default function SignInForm() {
         setTimeout(() => {
           setModalVisible(false);
           router.push("/");
-        }, 3000);
+        }, 1000);
       } else {
         setModalMessage(data.message);
         setModalVisible(true);
