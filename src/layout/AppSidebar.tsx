@@ -15,8 +15,10 @@ import {
   VideoIcon
 } from "../icons/index";
 // import { IoIosListBox } from "react-icons/io";
+import { HiOutlineSquaresPlus } from "react-icons/hi2";
 import { VscExtensions } from "react-icons/vsc";
 
+import { TbCube } from "react-icons/tb"; // perfect square cube shape
 
 import SidebarWidget from "./SidebarWidget";
 
@@ -29,7 +31,7 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   {
-    icon: <GridIcon />,
+    icon: <GridIcon/>,
     name: "Dashboard",
     subItems: [{ name: "Dashboard", path: "/", pro: false }],
   },
@@ -62,6 +64,18 @@ const navItems: NavItem[] = [
       { name: "Add Season", path: "/season", pro: false },
       { name: "Add Episode", path: "/episode", pro: false },
     ],
+  },
+  {
+    // icon: <HiOutlineSquaresPlus />,
+    icon: <HiOutlineSquaresPlus size={20} style={{ marginLeft: '4px' }} />,
+    name: "Upcoming Banners",
+    subItems: [{ name: "Upcoming Banners", path: "/upcoming-banners", pro: false }],
+  },
+  {
+    // icon: <HiOutlineSquaresPlus />,
+    icon: <TbCube size={20} style={{ marginLeft: '4px' }} />,
+    name: "Add Casts",
+    subItems: [{ name: "Casts", path: "/casts", pro: false }],
   },
   {
     name: "Tv-shows",
