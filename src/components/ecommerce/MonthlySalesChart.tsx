@@ -268,7 +268,7 @@ export default function MonthlySalesChart() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray/50">
           <div className="bg-white dark:bg-gray-900 rounded-xl p-6 w-80 space-y-4 shadow-lg">
             <h4 className="text-lg font-bold text-gray-800 dark:text-white">
-              Set Target for Last {selectedRange} Months
+               for Last {selectedRange} Months
             </h4>
             <input
               type="number"

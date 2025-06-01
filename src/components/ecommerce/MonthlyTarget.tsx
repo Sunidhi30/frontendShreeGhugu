@@ -9,7 +9,6 @@ import { DropdownItem } from "../ui/dropdown/DropdownItem";
 
 const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-// Helper to get token from localStorage safely
 const getToken = () => {
   if (typeof window !== "undefined") {
     return localStorage.getItem("token");
@@ -17,7 +16,6 @@ const getToken = () => {
   return null;
 };
 
-// Helper fetch that adds auth header automatically
 const authFetch = async (url: string, options: RequestInit = {}) => {
   const token = getToken();
   if (!token) throw new Error("No token found");
@@ -34,20 +32,14 @@ const authFetch = async (url: string, options: RequestInit = {}) => {
 export default function MonthlyTarget() {
   const [isOpen, setIsOpen] = useState(false);
   const [target, setTarget] = useState<number>(0);
-  const [invested, setInvested] = useState(0);
-  const [progress, setProgress] = useState(0);
-
-  // New state for modal visibility and input
+  const [invested, setInvested] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(0);
   const [showModal, setShowModal] = useState(false);
   const [inputTarget, setInputTarget] = useState("");
 
-  // Fetch Target from backend
   const fetchTarget = async () => {
     try {
-      const res = await authFetch("https://shreejighutargo21.onrender.com/api/vendors/get-target", {
-        method: "GET",
-      });
-
+      const res = await authFetch("https://shreejighutargo21.onrender.com/api/vendors/get-target");
       const data = await res.json();
       if (res.ok && data.success) {
         setTarget(data.monthly_target || 0);
@@ -57,45 +49,35 @@ export default function MonthlyTarget() {
     }
   };
 
-  // Fetch Wallet Data
   const fetchWalletData = async () => {
     try {
-      const res = await authFetch("https://shreejighutargo21.onrender.com/api/vendors/wallet-details", {
-        method: "GET",
-      });
-
+      const res = await authFetch("https://shreejighutargo21.onrender.com/api/vendors/wallet-details");
       const data = await res.json();
       if (res.ok && data.success) {
         const totalEarnings = data.totalBalance || 0;
         setInvested(totalEarnings);
-        if (target > 0) {
-          setProgress((totalEarnings / target) * 100);
-        }
       }
     } catch (err) {
       console.error("Error fetching wallet data:", err);
     }
   };
 
-  // Replace old handleSetTarget: Open modal instead of prompt
   const handleSetTargetClick = () => {
-    setInputTarget(""); // reset input
+    setInputTarget("");
     setShowModal(true);
   };
 
-  // On modal submit: validate and send API call
   const handleModalSubmit = async () => {
     const newTarget = parseInt(inputTarget);
     if (!newTarget || isNaN(newTarget)) {
       alert("Please enter a valid number");
       return;
     }
+
     try {
       const res = await authFetch("https://shreejighutargo21.onrender.com/api/vendors/set-target", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ target: newTarget }),
       });
 
@@ -111,16 +93,26 @@ export default function MonthlyTarget() {
     }
   };
 
+  const toggleDropdown = () => setIsOpen(!isOpen);
+  const closeDropdown = () => setIsOpen(false);
+
   useEffect(() => {
     fetchTarget();
+    fetchWalletData();
   }, []);
 
+  // Fixed progress calculation
   useEffect(() => {
     if (target > 0) {
-      fetchWalletData();
+      const calculatedProgress = (invested / target) * 100;
+      const finalProgress = Math.min(100, Math.max(0, calculatedProgress));
+      setProgress(finalProgress);
+    } else {
+      setProgress(0);
     }
-  }, [target]);
+  }, [target, invested]);
 
+  // Fixed ApexChart options with proper formatter
   const options: ApexOptions = {
     colors: ["#465FFF"],
     chart: {
@@ -142,7 +134,10 @@ export default function MonthlyTarget() {
             fontWeight: "600",
             offsetY: -40,
             color: "#1D2939",
-            formatter: () => `${progress.toFixed(2)}%`,
+            formatter: function () {
+              // Use the progress state directly instead of the passed value
+              return `${progress.toFixed(2)}%`;
+            },
           },
         },
       },
@@ -153,19 +148,16 @@ export default function MonthlyTarget() {
   };
 
   const series = [progress];
-  const toggleDropdown = () => setIsOpen(!isOpen);
-  const closeDropdown = () => setIsOpen(false);
-  const remaining = target - invested;
+  const remaining = Math.max(0, target - invested);
 
   return (
     <>
-      {/* Blurred background and Modal for set target */}
+      {/* Modal */}
       {showModal && (
         <>
           <div
             onClick={() => setShowModal(false)}
             className="fixed inset-0 z-40 bg-black/50 backdrop-blur-md transition-all duration-300"
-
           />
           <div className="fixed inset-0 flex items-center justify-center z-50 px-4">
             <div className="bg-white rounded-xl shadow-lg max-w-sm w-full p-6 text-center">
@@ -203,7 +195,7 @@ export default function MonthlyTarget() {
             <div>
               <h3 className="text-lg font-semibold text-gray-800 dark:text-white/90">Monthly Target</h3>
               <p className="mt-1 font-normal text-gray-500 text-theme-sm dark:text-gray-400">
-                Target you’ve set for each month
+                Target you've set for each month
               </p>
             </div>
             <div className="relative inline-block dark:text-white/100">
@@ -211,29 +203,29 @@ export default function MonthlyTarget() {
                 <MoreDotIcon className="text-gray-400 hover:text-gray-700  dark:hover:text-gray-300" />
               </button>
               <Dropdown isOpen={isOpen} onClose={closeDropdown} className="w-40 p-2 dark:hover:text-gray-300">
-                {/* <DropdownItem tag="a" onItemClick={() => { handleSetTargetClick(); closeDropdown(); }}>
-                  Set Target
-                </DropdownItem> */}
                 <DropdownItem
-  tag="a"
-  onItemClick={() => {
-    handleSetTargetClick();
-    closeDropdown();
-  }}
-  className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
->
-  Set Target
-</DropdownItem>
-
-                {/* <DropdownItem tag="a" onItemClick={closeDropdown}>View More</DropdownItem>
-                <DropdownItem tag="a" onItemClick={closeDropdown}>Delete</DropdownItem> */}
+                  tag="a"
+                  onItemClick={() => {
+                    handleSetTargetClick();
+                    closeDropdown();
+                  }}
+                  className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600"
+                >
+                  Set Target
+                </DropdownItem>
               </Dropdown>
             </div>
           </div>
 
           <div className="relative">
             <div className="max-h-[330px]">
-              <ReactApexChart options={options} series={series} type="radialBar" height={330} />
+              <ReactApexChart 
+                options={options} 
+                series={series} 
+                type="radialBar" 
+                height={330} 
+                key={`${progress}-${target}-${invested}`} // Force re-render when values change
+              />
             </div>
             <span className="absolute left-1/2 top-full -translate-x-1/2 -translate-y-[95%] rounded-full bg-success-50 px-3 py-1 text-xs font-medium text-success-600 dark:bg-success-500/15 dark:text-success-500">
               {progress >= 100 ? "🎉 Completed" : `+${progress.toFixed(2)}%`}
@@ -269,7 +261,7 @@ export default function MonthlyTarget() {
           <div>
             <p className="mb-1 text-center text-gray-500 text-theme-xs dark:text-gray-400 sm:text-sm">Remaining</p>
             <p className="text-base font-semibold text-gray-800 dark:text-white/90 sm:text-lg text-center">
-              ${remaining > 0 ? remaining.toLocaleString() : "0"}
+              ${remaining.toLocaleString()}
             </p>
           </div>
         </div>
