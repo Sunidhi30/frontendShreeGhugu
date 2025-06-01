@@ -1,8 +1,8 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 type Series = {
   _id: string;
   title: string;
@@ -136,11 +136,14 @@ export default function Page() {
                 className="hover:bg-gray-50 dark:hover:bg-gray-800 transition"
               >
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <Image
-                    src={s.thumbnail}
-                    alt={s.title}
-                    className="w-16 h-16 rounded-lg object-cover border dark:border-gray-700"
-                  />
+                <Image
+  src={s.thumbnail}
+  alt={s.title}
+  width={64} // or appropriate size
+  height={64}
+  className="w-16 h-16 rounded-lg object-cover border dark:border-gray-700"
+/>
+
                 </td>
                 <td className="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-100">
                   {s.title}
@@ -175,11 +178,14 @@ export default function Page() {
             key={s._id}
             className="flex flex-col sm:flex-row items-center bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 shadow-sm"
           >
-            <Image
-              src={s.thumbnail}
-              alt={s.title}
-              className="w-full sm:w-28 h-28 rounded-lg object-cover mb-3 sm:mb-0 sm:mr-4 flex-shrink-0"
-            />
+           <Image
+  src={s.thumbnail}
+  alt={s.title}
+  width={112} // matching w-28 = 7rem = 112px
+  height={112}
+  className="w-full sm:w-28 h-28 rounded-lg object-cover mb-3 sm:mb-0 sm:mr-4 flex-shrink-0"
+/>
+
             <div className="flex-1 space-y-1">
               <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                 {s.title}

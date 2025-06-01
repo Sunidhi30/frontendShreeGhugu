@@ -2,7 +2,6 @@
 
 'use client';
 
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 type Series = {
@@ -161,11 +160,12 @@ const [status, setStatus] = useState<'approved' | 'pending' | 'rejected'>('pendi
                   <tr key={seriesItem._id} className="hover:bg-gray-100 dark:hover:bg-gray-800">
                     <td className="py-4 px-6 whitespace-nowrap">
                       <div className="flex items-center space-x-3">
-                        <Image
-                          src={seriesItem.thumbnail}
-                          alt={seriesItem.title}
-                          className="w-12 h-16 rounded object-cover"
-                        />
+                      <img
+  src={seriesItem.thumbnail}
+  alt={seriesItem.title}
+  className="w-12 h-16 rounded object-cover"
+/>
+
                         <div>
                           <div className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                             {seriesItem.title}
@@ -231,11 +231,12 @@ const [status, setStatus] = useState<'approved' | 'pending' | 'rejected'>('pendi
                 className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow p-4"
               >
                 <div className="flex space-x-4">
-                  <Image
-                    src={seriesItem.thumbnail}
-                    alt={seriesItem.title}
-                    className="w-20 h-28 rounded object-cover flex-shrink-0"
-                  />
+                <img
+  src={seriesItem.thumbnail}
+  alt={seriesItem.title}
+  className="w-12 h-16 rounded object-cover"
+/>
+
                   <div className="flex flex-col justify-between flex-grow">
                     <div>
                       <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">

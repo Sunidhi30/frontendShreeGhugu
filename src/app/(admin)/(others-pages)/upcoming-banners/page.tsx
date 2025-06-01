@@ -933,7 +933,5 @@ return (
       </div>
     </div>
   );
-
 };
-
 export default UpcomingBannerPage;

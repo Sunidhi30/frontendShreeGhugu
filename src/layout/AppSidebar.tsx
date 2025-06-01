@@ -87,6 +87,14 @@ const navItems: NavItem[] = [
       { name: "Add Episode", path: "/uploadtvshowEpisode", pro: false },
     ],
   },
+  {
+    icon: <GridIcon/>,
+    name: "Contest",
+    subItems: [
+      { name: "Contest", path: "/contests", pro: false },
+      { name: "LeaderBoard", path: "/LeaderBoard", pro: false }
+    ],
+  },
  
   // {
   //   name: "Shorts",
