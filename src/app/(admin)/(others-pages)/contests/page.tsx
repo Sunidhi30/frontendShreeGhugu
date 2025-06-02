@@ -110,12 +110,24 @@ export default function ContestDashboard() {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
+    if (!dateString) return 'N/A';
+    
+    try {
+      // Create date object and adjust for timezone
+      const date = new Date(dateString);
+      date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+      
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    } catch (error) {
+      console.error('Error formatting date:', error);
+      return 'Invalid Date';
+    }
   };
+  
 
   // Fetch all contests
   const fetchContests = async () => {
@@ -448,10 +460,8 @@ export default function ContestDashboard() {
                             </div>
                           </div>
                         </div>
-
                         <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">{contest.description}</p>
                       </div>
-
                       {/* Contest Details */}
                       <div className="space-y-4 mb-6">
                         <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 space-y-3">
