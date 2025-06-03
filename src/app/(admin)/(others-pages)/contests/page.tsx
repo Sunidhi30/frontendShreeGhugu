@@ -57,11 +57,15 @@ interface Contest {
   status?: string;
 }
 
+// interface Video {
+//   _id: string;
+//   title: string;
+// }
+
 interface Video {
   _id: string;
-  title: string;
+  name: string;  // Change from title to name
 }
-
 export default function ContestDashboard() {
   const [activeTab, setActiveTab] = useState<'available' | 'my-contests'>('available');
   const [selectedVideo, setSelectedVideo] = useState<string>('');
@@ -90,13 +94,22 @@ export default function ContestDashboard() {
   const toggleContestDetails = (contestId: string) => {
     setExpandedContestId(expandedContestId === contestId ? null : contestId);
   };
-
   const fetchVideos = async (type: string) => {
     try {
       setLoading(true);
       const response = await fetch(`https://shreejighutargo21.onrender.com/api/common/search-allvideos-bytype?type=${type}`);
       const data = await response.json();
       if (data.success) {
+        console.log('API Response:', data); // Debug the full response
+        console.log('Videos array:', data.results); // Debug the videos array
+        
+        // Check each video object
+        data.results?.forEach((video, index) => {
+          console.log(`Video ${index}:`, video);
+          console.log(`Video ${index} title:`, video.title);
+          console.log(`Video ${index} title type:`, typeof video.title);
+        });
+        
         setVideos(data.results || []);
       } else {
         setVideos([]);
@@ -108,6 +121,23 @@ export default function ContestDashboard() {
       setLoading(false);
     }
   };
+  // const fetchVideos = async (type: string) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await fetch(`https://shreejighutargo21.onrender.com/api/common/search-allvideos-bytype?type=${type}`);
+  //     const data = await response.json();
+  //     if (data.success) {
+  //       setVideos(data.results || []);
+  //     } else {
+  //       setVideos([]);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching videos:', error);
+  //     setVideos([]);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const formatDate = (dateString: string) => {
     if (!dateString) return 'N/A';
@@ -201,15 +231,15 @@ export default function ContestDashboard() {
   }, []);
 
   const getTotalPrizeMoney = (prizes: Prize[] | undefined): string => {
-    if (!prizes || !Array.isArray(prizes)) return '$0';
+    if (!prizes || !Array.isArray(prizes)) return '₹0';
     const total = prizes.reduce((sum, prize) => sum + (prize.prizeAmount || 0), 0);
-    return `$${total.toLocaleString()}`;
+    return `₹${total.toLocaleString('en-IN')}`;
   };
   
   const getTopPrize = (prizes: Prize[] | undefined): string => {
-    if (!prizes || !Array.isArray(prizes) || prizes.length === 0) return '$0';
+    if (!prizes || !Array.isArray(prizes) || prizes.length === 0) return '₹0';
     const topPrize = Math.max(...prizes.map(prize => prize.prizeAmount || 0));
-    return `$${topPrize.toLocaleString()}`;
+    return `₹${topPrize.toLocaleString('en-IN')}`;
   };
   
   const getRegistrationStatus = (contest: Contest): 'upcoming' | 'closed' | 'open' => {
@@ -329,7 +359,7 @@ export default function ContestDashboard() {
               <div className="flex items-center gap-2 text-white/90">
                 <Award className="w-5 h-5 text-yellow-300" />
                 <span className="font-medium">
-                  ${contests.reduce((total, contest) => {
+                ₹{contests.reduce((total, contest) => {
                     const contestTotal = contest.prizes?.reduce((sum, prize) => sum + (prize.prizeAmount || 0), 0) || 0;
                     return total + contestTotal;
                   }, 0).toLocaleString()} in Prizes
@@ -576,7 +606,7 @@ export default function ContestDashboard() {
                           >
                             Load My Videos
                           </button>
-                          <select
+                          {/* <select
                             value={selectedVideo}
                             onChange={(e) => setSelectedVideo(e.target.value)}
                             className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
@@ -587,7 +617,21 @@ export default function ContestDashboard() {
                                 {video.title}
                               </option>
                             ))}
-                          </select>
+                          </select> */}
+                    <select
+  value={selectedVideo}
+  onChange={(e) => setSelectedVideo(e.target.value)}
+  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+>
+  <option value="">🎬 Select your best video</option>
+  {Array.isArray(videos) && videos.map((video) => (
+    <option key={video._id} value={video._id}>
+      {video.name}
+    </option>
+  ))}
+</select>
+
+
 
                           <button
                             onClick={() => registerForContest(contest._id)}
