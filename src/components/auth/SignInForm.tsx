@@ -120,7 +120,7 @@ export default function SignInForm() {
                   Email or Username <span className="text-error-500">*</span>
                 </Label>
                 <Input
-                  placeholder="info@gmail.com or username"
+                  placeholder="info@gmail.com"
                   type="text"
                   value={emailOrUsername}
                   onChange={(e) => setEmailOrUsername(e.target.value)}

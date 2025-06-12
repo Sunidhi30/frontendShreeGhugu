@@ -23,14 +23,14 @@ export default function AuthLayout({
               <div className="flex flex-col items-center max-w-xs">
                 <Link href="/" className="block mb-4">
                   <Image
-                    width={200}
-                    height={10}
+                    width={900}
+                    height={900}
                     src="./images/logo/logo21.svg"
                     alt="Logo"
                   />
                 </Link>
                 <p className="text-center text-gray-400 dark:text-white/60">
-                 GutargooPlus
+                 {/* GutargooPlus */}
                 </p>
               </div>
             </div>

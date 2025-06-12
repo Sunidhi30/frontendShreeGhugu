@@ -89,6 +89,8 @@ export default function SeriesDetailsPage() {
       <Image
         src={series.landscape || series.thumbnail}
         alt={series.title}
+        width={128} // Add specific width
+        height={128} // Add specific height
         className="w-full h-48 sm:h-64 object-cover rounded-lg mb-4"
       />
   

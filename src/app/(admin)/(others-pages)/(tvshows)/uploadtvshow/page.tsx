@@ -2,19 +2,40 @@
 'use client';
 
 import axios from 'axios';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { FiPlus, FiSearch, FiTv, FiUpload, FiX } from 'react-icons/fi';
-import Image from 'next/image';
+
 interface Channel {
   _id: string;
   name: string;
 }
+interface Type {
+  _id: string;
+  name: string;
+  type: number;
+  status: number;
+}
+
+
+
+
+
 
 interface TVShow {
   _id: string;
   title: string;
   description: string;
   channel_id: {
+    _id: string;
+    name: string;
+  };
+  category_id?: {
+    _id: string;
+    name: string;
+  };
+  video_type: string;
+  language_id: {
     _id: string;
     name: string;
   };
@@ -26,6 +47,20 @@ interface TVShow {
   tags?: string;
 }
 
+interface Category {
+  _id: string;
+  name: string;
+}
+
+interface Language {
+  _id: string;
+  name: string;
+}
+
+// Video type options
+const VIDEO_TYPES = ['movie', 'series', 'show'] as const;
+type VideoType = typeof VIDEO_TYPES[number];
+
 const TVShowsList = () => {
   // List view state
   const [channels, setChannels] = useState<Channel[]>([]);
@@ -36,7 +71,10 @@ const TVShowsList = () => {
   const [token, setToken] = useState<string | null>(null);
   const [showUploadForm, setShowUploadForm] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [types, setTypes] = useState<Type[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [languages, setLanguages] = useState<Language[]>([]);
+  
   // Upload form state
   const [formData, setFormData] = useState({
     title: '',
@@ -44,22 +82,113 @@ const TVShowsList = () => {
     category_id: '',
     releaseYear: '',
     totalSeasons: '',
+    type_id:'',
     status: 'ongoing',
     tags: '',
-    channel_id: ''
+    channel_id: '',
+    video_type: '',
+    language_id: ''
   });
+
+  // File upload states
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [landscape, setLandscape] = useState<File | null>(null);
-  const [video, setVideo] = useState<File | null>(null); // Added missing video state
+  const [video, setVideo] = useState<File | null>(null);
+  
+  // Upload status states
   const [uploadLoading, setUploadLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+  const fetchCategories = async (authToken: string) => {
+    try {
+      console.log('🔄 Fetching categories...');
+      const response = await axios.get('http://localhost:9000/api/admin/get_categories', {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log('📊 Categories API Response:', response.data);
+      
+      if (response.data && response.data.data) {
+        // Update this line to access the correct data structure
+        setCategories(response.data.data);
+        console.log('✅ Categories loaded:', response.data.data);
+      } else {
+        console.warn('⚠️ Unexpected categories response structure:', response.data);
+        setError('Categories data structure is unexpected');
+      }
+    } catch (error: any) {
+      console.error('❌ Error fetching categories:', error);
+      console.error('❌ Error response:', error.response?.data);
+      setError(`Failed to fetch categories: ${error.response?.data?.message || error.message}`);
+    }
+  };
+  
+
+  const fetchTypes = async (authToken: string) => {
+    try {
+      console.log('🔄 Fetching types...');
+      const response = await axios.get('http://localhost:9000/api/admin/get_types', {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      console.log('📊 Types API Response:', response.data);
+      
+      if (response.data && response.data.data) {
+        setTypes(response.data.data);
+        console.log('✅ Types loaded:', response.data.data);
+      } else {
+        console.warn('⚠️ Unexpected types response structure:', response.data);
+        setError('Types data structure is unexpected');
+      }
+    } catch (error: any) {
+      console.error('❌ Error fetching types:', error);
+      console.error('❌ Error response:', error.response?.data);
+      setError(`Failed to fetch types: ${error.response?.data?.message || error.message}`);
+    }
+  };
+  
+  const fetchLanguages = async (authToken: string) => {
+    try {
+      console.log('Fetching languages...');
+      const response = await axios.get('http://localhost:9000/api/admin/get_languages', {
+        headers: {
+          Authorization: `Bearer ${authToken}`
+        }
+      });
+      console.log('Languages response:', response.data);
+      
+      if (response.data && response.data.data) {
+        // Update this line to access the correct data structure
+        setLanguages(response.data.data);
+        console.log('Languages set:', response.data.data);
+      } else {
+        console.log('No languages found in response');
+        setError('No languages found');
+      }
+    } catch (error: any) {
+      console.error('Error fetching languages:', error);
+      setError(`Failed to fetch languages: ${error.response?.data?.message || error.message}`);
+    }
+  };
+  
+
+  // Initial setup effect
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
-    setToken(storedToken);
-    
     if (storedToken) {
+      setToken(storedToken);
       fetchChannels(storedToken);
+      fetchCategories(storedToken);
+      fetchTypes(storedToken); // Add this line
+      fetchLanguages(storedToken);
+    } else {
+      setError('No authentication token found. Please log in.');
     }
   }, []);
 
@@ -72,7 +201,7 @@ const TVShowsList = () => {
 
   const fetchChannels = async (token: string) => {
     try {
-      const response = await axios.get('https://shreejighutargo21.onrender.com/api/vendors/get-channels', {
+      const response = await axios.get('http://localhost:9000/api/vendors/get-channels', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -91,13 +220,12 @@ const TVShowsList = () => {
       console.error('Channel fetch error:', error);
     }
   };
-  
 
   const fetchTVShows = async (channelId: string) => {
     setLoading(true);
     try {
       console.log('Fetching TV shows for channel:', channelId);
-      const response = await axios.get(`https://shreejighutargo21.onrender.com/api/vendors/tvshows`, {
+      const response = await axios.get(`http://localhost:9000/api/vendors/tvshows`, {
         params: {
           channel_id: channelId
         },
@@ -124,7 +252,6 @@ const TVShowsList = () => {
     }
   };
   
-  
   const handleChannelSelect = (channelId: string) => {
     setSelectedChannel(channelId);
   };
@@ -137,12 +264,12 @@ const TVShowsList = () => {
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    type: 'thumbnail' | 'landscape' | 'video' // Added 'video' type
+    type: 'thumbnail' | 'landscape' | 'video'
   ) => {
     if (e.target.files && e.target.files[0]) {
       if (type === 'thumbnail') setThumbnail(e.target.files[0]);
       else if (type === 'landscape') setLandscape(e.target.files[0]);
-      else if (type === 'video') setVideo(e.target.files[0]); // Added video handling
+      else if (type === 'video') setVideo(e.target.files[0]);
     }
   };
 
@@ -153,26 +280,30 @@ const TVShowsList = () => {
       setMessage('❌ Authentication token not found');
       return;
     }
-
-    if (!formData.title.trim() || !selectedChannel) {
-      setMessage('❌ Title and channel are required');
+  
+    if (!formData.title || !formData.category_id || !formData.video_type || !formData.language_id) {
+      setMessage('❌ Please fill in all required fields');
       return;
     }
-
+  
     setUploadLoading(true);
+    setMessage('');
+    
     const formPayload = new FormData();
     
+    // Append all form data
     Object.entries(formData).forEach(([key, value]) => {
       if (value) formPayload.append(key, value);
     });
-
+  
+    // Append files if they exist
     if (thumbnail) formPayload.append('thumbnail', thumbnail);
     if (landscape) formPayload.append('landscape', landscape);
-    if (video) formPayload.append('video', video); // Added video to form data
-
+    if (video) formPayload.append('video', video);
+  
     try {
       const response = await axios.post(
-        'https://shreejighutargo21.onrender.com/api/vendors/tvshows',
+        'http://localhost:9000/api/vendors/tvshows',
         formPayload,
         {
           headers: {
@@ -181,7 +312,7 @@ const TVShowsList = () => {
           }
         }
       );
-
+  
       if (response.data.success) {
         setMessage('✅ TV Show uploaded successfully');
         setShowUploadForm(false);
@@ -191,19 +322,22 @@ const TVShowsList = () => {
         setFormData({
           title: '',
           description: '',
+          type_id: '',
           category_id: '',
           releaseYear: '',
           totalSeasons: '',
           status: 'ongoing',
           tags: '',
-          channel_id: selectedChannel
+          channel_id: selectedChannel,
+          video_type: '',
+          language_id: ''
         });
         setThumbnail(null);
         setLandscape(null);
-        setVideo(null); // Reset video state
+        setVideo(null);
       }
     } catch (error: any) {
-      setMessage('❌ Failed to upload TV Show');
+      setMessage(`❌ Failed to upload TV Show: ${error.response?.data?.error || error.message}`);
       console.error('Upload error:', error);
     } finally {
       setUploadLoading(false);
@@ -245,6 +379,25 @@ const TVShowsList = () => {
           </button>
         </div>
 
+        {/* Debug Information */}
+        {process.env.NODE_ENV === 'development' && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <h3 className="font-semibold text-yellow-800 mb-2">Debug Info:</h3>
+            <div className="text-sm text-yellow-700">
+              <p>Categories loaded: {categories.length}</p>
+              <p>Languages loaded: {languages.length}</p>
+              <p>Token exists: {token ? 'Yes' : 'No'}</p>
+            </div>
+          </div>
+        )}
+
+        {/* Global Error Display */}
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6">
+            {error}
+          </div>
+        )}
+
         {/* Channel Selection with Search */}
         <div className="bg-white dark:bg-gray-800 rounded-xl p-5 sm:p-6 shadow-lg mb-8">
           <div className="mb-5 w-full relative">
@@ -284,6 +437,7 @@ const TVShowsList = () => {
           </div>
         </div>
 
+
         {/* Upload Form */}
         {showUploadForm && selectedChannel && (
           <div className="mb-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all animate-fadeIn max-w-full overflow-auto">
@@ -316,6 +470,142 @@ const TVShowsList = () => {
                     className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors"
                     placeholder="Enter TV show title"
                   />
+                </div>
+
+            
+<div>
+  <label className="block text-sm font-medium mb-2 dark:text-gray-200">
+    Category * ({categories.length} available)
+  </label>
+  <select
+    name="category_id"
+    value={formData.category_id}
+    onChange={handleFormChange}
+    required
+    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors"
+  >
+    <option value="">Select Category</option>
+    {categories && categories.map(category => (
+      <option key={category._id} value={category._id}>
+        {category.name}
+      </option>
+    ))}
+  </select>
+  {/* Debug information */}
+  {process.env.NODE_ENV === 'development' && (
+    <div className="mt-1 text-xs text-gray-500">
+      <p>Available categories:</p>
+      <ul className="list-disc pl-4">
+        {categories.map(cat => (
+          <li key={cat._id}>{cat.name} (ID: {cat._id})</li>
+        ))}
+      </ul>
+    </div>
+  )}
+  {categories.length === 0 && (
+    <p className="text-red-500 text-sm mt-1">
+      No categories loaded. Check your API connection.
+    </p>
+  )}
+</div>
+
+
+                {/* Video Type Selection */}
+                <div>
+                  <label className="block text-sm font-medium mb-2 dark:text-gray-200">
+                    Video Type *
+                  </label>
+                  <select
+                    name="video_type"
+                    value={formData.video_type}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors"
+                  >
+                    <option value="">Select Video Type</option>
+                    {VIDEO_TYPES.map(type => (
+                      <option key={type} value={type}>
+                        {type.charAt(0).toUpperCase() + type.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Language Selection */}
+                <div>
+                  <label className="block text-sm font-medium mb-2 dark:text-gray-200">
+                    Language * ({languages.length} available)
+                  </label>
+                  <select
+                    name="language_id"
+                    value={formData.language_id}
+                    onChange={handleFormChange}
+                    required
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors"
+                  >
+                    <option value="">Select Language</option>
+                    {languages && languages.map(language => (
+                      <option key={language._id} value={language._id}>
+                        {language.name}
+                      </option>
+                    ))}
+                  </select>
+                  {languages.length === 0 && (
+                    <p className="text-red-500 text-sm mt-1">No languages loaded. Check your API connection.</p>
+                  )}
+                </div>
+                        {/* Type Selection */}
+<div>
+  <label className="block text-sm font-medium mb-2 dark:text-gray-200">
+    Type * ({types.length} available)
+  </label>
+  <select
+    name="type_id"
+    value={formData.type_id}
+    onChange={handleFormChange}
+    required
+    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors"
+  >
+    <option value="">Select Type</option>
+    {types && types.map(type => (
+      <option key={type._id} value={type._id}>
+        {type.name.charAt(0).toUpperCase() + type.name.slice(1)}
+      </option>
+    ))}
+  </select>
+  {/* Debug information */}
+  {process.env.NODE_ENV === 'development' && (
+    <div className="mt-1 text-xs text-gray-500">
+      <p>Available types:</p>
+      <ul className="list-disc pl-4">
+        {types.map(type => (
+          <li key={type._id}>{type.name} (ID: {type._id})</li>
+        ))}
+      </ul>
+    </div>
+  )}
+  {types.length === 0 && (
+    <p className="text-red-500 text-sm mt-1">
+      No types loaded. Check your API connection.
+    </p>
+  )}
+</div>
+
+
+                {/* Status */}
+                <div>
+                  <label className="block text-sm font-medium mb-2 dark:text-gray-200">
+                    Status
+                  </label>
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleFormChange}
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors"
+                  >
+                    <option value="ongoing">Ongoing</option>
+                    <option value="completed">Completed</option>
+                  </select>
                 </div>
 
                 {/* Description */}
@@ -363,24 +653,8 @@ const TVShowsList = () => {
                   />
                 </div>
 
-                {/* Status */}
-                <div>
-                  <label className="block text-sm font-medium mb-2 dark:text-gray-200">
-                    Status
-                  </label>
-                  <select
-                    name="status"
-                    value={formData.status}
-                    onChange={handleFormChange}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-colors"
-                  >
-                    <option value="ongoing">Ongoing</option>
-                    <option value="completed">Completed</option>
-                  </select>
-                </div>
-
                 {/* Tags */}
-                <div>
+                <div className="sm:col-span-2">
                   <label className="block text-sm font-medium mb-2 dark:text-gray-200">
                     Tags
                   </label>
@@ -410,6 +684,8 @@ const TVShowsList = () => {
                         <Image
                           src={URL.createObjectURL(thumbnail)}
                           alt="Thumbnail preview"
+                          width={64}
+                          height={64}
                           className="h-16 w-16 object-cover rounded"
                         />
                       )}
@@ -431,6 +707,8 @@ const TVShowsList = () => {
                         <Image
                           src={URL.createObjectURL(landscape)}
                           alt="Landscape preview"
+                          width={112}
+                          height={64}
                           className="h-16 w-28 object-cover rounded"
                         />
                       )}
@@ -448,11 +726,11 @@ const TVShowsList = () => {
                       className="w-full p-2 border border-gray-300 rounded-lg dark:text-white dark:border-gray-600"
                     />
                     {video && (
-                      <video
-                        src={URL.createObjectURL(video)}
-                        controls
-                        className="mt-2 max-h-48 rounded"
-                      />
+                      <div className="mt-2">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Selected: {video.name} ({(video.size / (1024 * 1024)).toFixed(2)} MB)
+                        </p>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -487,12 +765,6 @@ const TVShowsList = () => {
             </div>
           )}
 
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-4">
-              {error}
-            </div>
-          )}
-
           {!loading && !error && tvShows.length === 0 && selectedChannel && (
             <div className="text-center py-8 text-gray-500 dark:text-gray-400">
               No TV shows found for this channel. Upload your first TV show!
@@ -504,25 +776,36 @@ const TVShowsList = () => {
               {tvShows.map((show) => (
                 <div key={show._id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                   {show.thumbnail && (
-                    <Image
-                      src={show.thumbnail}
-                      alt={show.title}
-                      className="w-full h-32 object-cover rounded-lg mb-3"
-                    />
+                    <div className="mb-3">
+                      <Image
+                        src={show.thumbnail}
+                        alt={show.title}
+                        width={300}
+                        height={200}
+                        className="w-full h-40 object-cover rounded"
+                      />
+                    </div>
                   )}
                   <h3 className="text-lg font-semibold mb-2 dark:text-white">{show.title}</h3>
                   <p className="text-gray-600 dark:text-gray-300 text-sm mb-2 line-clamp-2">
                     {show.description}
                   </p>
-                  <div className="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400">
-                    <span>Status: {show.status}</span>
-                    {show.releaseYear && <span>Year: {show.releaseYear}</span>}
-                  </div>
-                  {show.totalSeasons && (
-                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      Seasons: {show.totalSeasons}
+                  <div className="space-y-1 text-sm text-gray-500 dark:text-gray-400">
+                    <div className="flex justify-between">
+                      <span>Status: {show.status}</span>
+                      {show.releaseYear && <span>Year: {show.releaseYear}</span>}
                     </div>
-                  )}
+                    {show.totalSeasons && (
+                      <div>Seasons: {show.totalSeasons}</div>
+                    )}
+                    {show.category_id && (
+                      <div>Category: {show.category_id.name}</div>
+                    )}
+                    {show.language_id && (
+                      <div>Language: {show.language_id.name}</div>
+                    )}
+                    <div>Type: {show.video_type}</div>
+                  </div>
                 </div>
               ))}
             </div>

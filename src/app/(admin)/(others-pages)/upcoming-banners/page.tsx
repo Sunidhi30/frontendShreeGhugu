@@ -464,6 +464,9 @@
 // };
 
 // export default UpcomingBannerPage;
+
+
+
 'use client';
 
 import { Calendar, Clock, Film, Globe, Play, Plus, Tag, Upload, Users, X } from 'lucide-react';
@@ -486,6 +489,17 @@ interface Banner {
   bannerUrl: string;
   uploadedBy: { email: string };
 }
+interface Cast {
+  _id: string;
+  name: string;
+  image: string;
+  type: string;
+  personal_info?: string;
+  status: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
 
 const UpcomingBannerPage = () => {
   const [banners, setBanners] = useState<Banner[]>([]);
@@ -511,26 +525,29 @@ const UpcomingBannerPage = () => {
 
   const fetchOptions = async () => {
     try {
-      // Fix: Create proper RequestInit object
       const requestInit: RequestInit = token 
         ? { headers: { Authorization: `Bearer ${token}` } }
         : {};
-
+  
       const [categoriesRes, typesRes, languagesRes, castsRes] = await Promise.all([
         fetch('https://shreejighutargo21.onrender.com/api/admin/get_categories', requestInit),
         fetch('https://shreejighutargo21.onrender.com/api/admin/get_types', requestInit),
         fetch('https://shreejighutargo21.onrender.com/api/admin/get_languages', requestInit),
         fetch('https://shreejighutargo21.onrender.com/api/vendors/get-casts', requestInit),
       ]);
-
+  
+      // Update these lines to properly handle the response structure
       setCategoriesList(await categoriesRes.json().then(res => res.data || []));
       setTypesList(await typesRes.json().then(res => res.data || []));
       setLanguagesList(await languagesRes.json().then(res => res.data || []));
-      setCastList(await castsRes.json().then(res => res.data || []));
+      // Modified this line to access the 'casts' property instead of 'data'
+      const castsData = await castsRes.json();
+      setCastList(castsData.casts || []);
     } catch (err) {
       console.error("Failed to fetch options:", err);
     }
   };
+  
 
   const fetchBanners = async () => {
     try {

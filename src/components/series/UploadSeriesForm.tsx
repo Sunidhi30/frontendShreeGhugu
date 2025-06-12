@@ -3,36 +3,64 @@
 'use client';
 
 import axios from 'axios';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { FiUpload } from 'react-icons/fi';
-import Image from 'next/image';
 export default function UploadSeriesForm() {
   const [form, setForm] = useState({
     title: '',
     description: '',
     category_id: '',
     releaseYear: '',
+    channel_id: '',
+    language_id: '',
+    type_id: '', 
+    video_type: '', 
     tags: '',
   });
-
+  const VIDEO_TYPES = [
+    { id: 'movie', name: 'Movie' },
+    { id: 'series', name: 'Series' },
+    { id: 'show', name: 'Show' }
+  ];
+  
   const [categories, setCategories] = useState<{ _id: string; name: string }[]>([]);
   const [thumbnail, setThumbnail] = useState<File | null>(null);
   const [landscape, setLandscape] = useState<File | null>(null);
+  const [types, setTypes] = useState<{ _id: string; name: string }[]>([]);
+
   const [loading, setLoading] = useState(false);
   const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [landscapePreview, setLandscapePreview] = useState<string | null>(null);
+  const [languages, setLanguages] = useState<{ _id: string; name: string }[]>([]);
+  const [channels, setChannels] = useState<{ _id: string; name: string }[]>([]);
+
 
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("https://shreejighutargo21.onrender.com/api/admin/get_categories");
-        setCategories(response.data.data); // ✅ Only set the actual array
+        const token = localStorage.getItem('token');
+        const [categoriesRes, languagesRes, channelsRes, typesRes] = await Promise.all([
+          axios.get("http://localhost:9000/api/admin/get_categories"),
+          axios.get("http://localhost:9000/api/admin/get_languages"),
+          axios.get("http://localhost:9000/api/vendors/get-channels", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }),
+          axios.get("http://localhost:9000/api/admin/get_types") // Add this new API call
+        ]);
+        
+        setCategories(categoriesRes.data.data);
+        setLanguages(languagesRes.data.data);
+        setChannels(channelsRes.data.channels || []);
+        setTypes(typesRes.data.data || []); // Store the types
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error("Error fetching data:", error);
       }
     };
   
-    fetchCategories();
+    fetchData();
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -95,12 +123,19 @@ export default function UploadSeriesForm() {
     formData.append('category_id', form.category_id);
     formData.append('releaseYear', form.releaseYear);
     formData.append('tags', form.tags);
+    formData.append('language_id', form.language_id); // Add this line
+    formData.append('video_type', form.video_type); // Add this line
+    formData.append('type_id', form.type_id); // Changed from video_type to type_id
+
+
+
+
 
     if (thumbnail) formData.append('thumbnail', thumbnail);
     if (landscape) formData.append('landscape', landscape);
 
     try {
-      const response = await axios.post('https://shreejighutargo21.onrender.com/api/vendors/series', formData, {
+      const response = await axios.post('http://localhost:9000/api/vendors/series', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -158,7 +193,7 @@ export default function UploadSeriesForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                   Category
                 </label>
                 <select
@@ -175,6 +210,86 @@ export default function UploadSeriesForm() {
                   ))}
                 </select>
               </div>
+                 
+    <div>
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        Content Type
+      </label>
+      <select
+        name="type_id"
+        onChange={handleChange}
+        className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+        required
+      >
+        <option value="">Select a content type</option>
+        {types.map((type) => (
+          <option key={type._id} value={type._id}>
+            {type.name}
+          </option>
+        ))}
+      </select>
+    </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+
+  <div>
+    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      Language
+    </label>
+    <select
+      name="language_id"
+      onChange={handleChange}
+      className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+      required
+    >
+      <option value="">Select a language</option>
+      {languages.map((lang) => (
+        <option key={lang._id} value={lang._id}>
+          {lang.name}
+        </option>
+      ))}
+    </select>
+  </div> 
+  <div>
+    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      Video Type
+    </label>
+    <select
+      name="video_type"
+      onChange={handleChange}
+      className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+      required
+    >
+      <option value="">Select a video type</option>
+      {VIDEO_TYPES.map((type) => (
+        <option key={type.id} value={type.id}>
+          {type.name}
+        </option>
+      ))}
+    </select>
+  </div>
+   <div>
+    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      Channel
+    </label>
+    <select
+      name="channel_id"
+      onChange={handleChange}
+      className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white"
+      required
+    >
+      <option value="">Select a channel</option>
+      {channels.map((channel) => (
+        <option key={channel._id} value={channel._id}>
+          {channel.name}
+        </option>
+      ))}
+    </select>
+  </div>
+
+ 
+</div>
+
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -212,11 +327,18 @@ export default function UploadSeriesForm() {
                   Thumbnail Image
                 </label>
                 <div className="border-2 border-dashed rounded-lg p-4 text-center">
-                  {thumbnailPreview ? (
-                    <Image src={thumbnailPreview} alt="Thumbnail" className="mx-auto h-32" />
-                  ) : (
-                    <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
-                  )}
+                {thumbnailPreview ? (
+  <Image 
+    src={thumbnailPreview} 
+    alt="Thumbnail" 
+    width={128} // Add specific width
+    height={128} // Add specific height
+    className="mx-auto h-32 object-contain" 
+  />
+) : (
+  <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
+)}
+
                   <input type="file" name="thumbnail" accept="image/*" onChange={handleFileChange} />
                 </div>
               </div>
@@ -226,11 +348,18 @@ export default function UploadSeriesForm() {
                   Landscape Image
                 </label>
                 <div className="border-2 border-dashed rounded-lg p-4 text-center">
-                  {landscapePreview ? (
-                    <Image src={landscapePreview} alt="Landscape" className="mx-auto h-32" />
-                  ) : (
-                    <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
-                  )}
+                {landscapePreview ? (
+  <Image 
+    src={landscapePreview} 
+    alt="Landscape" 
+    width={128} // Add specific width
+    height={128} // Add specific height
+    className="mx-auto h-32 object-contain"
+  />
+) : (
+  <FiUpload className="mx-auto h-12 w-12 text-gray-400" />
+)}
+
                   <input type="file" name="landscape" accept="image/*" onChange={handleFileChange} />
                 </div>
               </div>
