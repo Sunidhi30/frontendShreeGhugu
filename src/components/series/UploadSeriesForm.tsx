@@ -455,19 +455,7 @@ const [trailerType, setTrailerType] = useState('external'); // 'external' or 'up
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const { name, files } = e.target;
-  //   if (files && files.length > 0) {
-  //     const file = files[0];
-  //     if (name === 'thumbnail') {
-  //       setThumbnail(file);
-  //       setThumbnailPreview(URL.createObjectURL(file));
-  //     } else if (name === 'landscape') {
-  //       setLandscape(file);
-  //       setLandscapePreview(URL.createObjectURL(file));
-  //     }
-  //   }
-  // };
+ 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, files } = e.target;
     if (files && files.length > 0) {
