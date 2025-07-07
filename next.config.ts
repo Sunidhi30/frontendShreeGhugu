@@ -24,7 +24,10 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
-    domains: ['res.cloudinary.com'],  // Add Cloudinary domain here
+    domains: [
+      'res.cloudinary.com', // already allowed
+      'image.freepik.com',  // ✅ allow freepik too
+    ],
   },
   eslint: {
     ignoreDuringBuilds: true, // ✅ disables ESLint during builds
