@@ -11,50 +11,37 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/(full-width-pages)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(full-width-pages)/layout.js"
-    ],
-    "/(full-width-pages)/(auth)/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(full-width-pages)/(auth)/layout.js"
-    ],
-    "/(full-width-pages)/(auth)/signin/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(full-width-pages)/(auth)/signin/page.js"
-    ],
     "/(admin)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/layout.js"
     ],
-    "/(admin)/(others-pages)/forgot-password/page": [
+    "/(admin)/(others-pages)/(transactions)/transactionsall/error": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/(others-pages)/forgot-password/page.js"
+      "static/chunks/app/(admin)/(others-pages)/(transactions)/transactionsall/error.js"
     ],
-    "/_not-found/page": [
+    "/(admin)/(others-pages)/(transactions)/transactionsall/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/(admin)/(others-pages)/(transactions)/transactionsall/loading.js"
     ],
-    "/(admin)/(others-pages)/(series)/[id]/page": [
+    "/(admin)/(others-pages)/(transactions)/transactionsall/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/(others-pages)/(series)/[id]/page.js"
-    ],
-    "/(admin)/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/page.js"
+      "static/css/app/(admin)/(others-pages)/(transactions)/transactionsall/page.css",
+      "static/chunks/app/(admin)/(others-pages)/(transactions)/transactionsall/page.js"
     ],
     "/(admin)/(others-pages)/edit-profile/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/(others-pages)/edit-profile/page.js"
+    ],
+    "/(admin)/(others-pages)/transactionsHistory/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(admin)/(others-pages)/transactionsHistory/page.css",
+      "static/chunks/app/(admin)/(others-pages)/transactionsHistory/page.js"
     ]
   }
 }

@@ -1,7 +1,4 @@
 {
-  "/(admin)/(others-pages)/(series)/[id]/page": "app/(admin)/(others-pages)/(series)/[id]/page.js",
-  "/(admin)/page": "app/(admin)/page.js",
-  "/(admin)/(others-pages)/edit-profile/page": "app/(admin)/(others-pages)/edit-profile/page.js",
-  "/(admin)/(others-pages)/forgot-password/page": "app/(admin)/(others-pages)/forgot-password/page.js",
-  "/(full-width-pages)/(auth)/signin/page": "app/(full-width-pages)/(auth)/signin/page.js"
+  "/(admin)/(others-pages)/(transactions)/transactionsall/page": "app/(admin)/(others-pages)/(transactions)/transactionsall/page.js",
+  "/(admin)/(others-pages)/transactionsHistory/page": "app/(admin)/(others-pages)/transactionsHistory/page.js"
 }
