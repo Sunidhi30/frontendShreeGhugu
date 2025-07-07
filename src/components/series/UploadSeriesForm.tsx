@@ -41,14 +41,14 @@
 //       try {
 //         const token = localStorage.getItem('token');
 //         const [categoriesRes, languagesRes, channelsRes, typesRes] = await Promise.all([
-//           axios.get("http://localhost:9000/api/admin/get_categories"),
-//           axios.get("http://localhost:9000/api/admin/get_languages"),
-//           axios.get("http://localhost:9000/api/vendors/get-channels", {
+//           axios.get("http://https://shreejighutargo21.onrender.com/api/admin/get_categories"),
+//           axios.get("http://https://shreejighutargo21.onrender.com/api/admin/get_languages"),
+//           axios.get("http://https://shreejighutargo21.onrender.com/api/vendors/get-channels", {
 //             headers: {
 //               Authorization: `Bearer ${token}`
 //             }
 //           }),
-//           axios.get("http://localhost:9000/api/admin/get_types") // Add this new API call
+//           axios.get("http://https://shreejighutargo21.onrender.com/api/admin/get_types") // Add this new API call
 //         ]);
         
 //         setCategories(categoriesRes.data.data);
@@ -135,7 +135,7 @@
 //     if (landscape) formData.append('landscape', landscape);
 
 //     try {
-//       const response = await axios.post('http://localhost:9000/api/vendors/series', formData, {
+//       const response = await axios.post('http://https://shreejighutargo21.onrender.com/api/vendors/series', formData, {
 //         headers: {
 //           'Content-Type': 'multipart/form-data',
 //           Authorization: `Bearer ${token}`,
@@ -429,14 +429,14 @@ const [trailerType, setTrailerType] = useState('external'); // 'external' or 'up
       try {
         const token = localStorage.getItem('token');
         const [categoriesRes, languagesRes, channelsRes, typesRes] = await Promise.all([
-          axios.get("http://localhost:9000/api/admin/get_categories"),
-          axios.get("http://localhost:9000/api/admin/get_languages"),
-          axios.get("http://localhost:9000/api/vendors/get-channels", {
+          axios.get("http://https://shreejighutargo21.onrender.com/api/admin/get_categories"),
+          axios.get("http://https://shreejighutargo21.onrender.com/api/admin/get_languages"),
+          axios.get("http://https://shreejighutargo21.onrender.com/api/vendors/get-channels", {
             headers: {
               Authorization: `Bearer ${token}`
             }
           }),
-          axios.get("http://localhost:9000/api/admin/get_types") // Add this new API call
+          axios.get("http://https://shreejighutargo21.onrender.com/api/admin/get_types") // Add this new API call
         ]);
         
         setCategories(categoriesRes.data.data);
@@ -521,7 +521,7 @@ const [trailerType, setTrailerType] = useState('external'); // 'external' or 'up
     }
   
     try {
-      const response = await axios.post('http://localhost:9000/api/vendors/series', formData, {
+      const response = await axios.post('http://https://shreejighutargo21.onrender.com/api/vendors/series', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,

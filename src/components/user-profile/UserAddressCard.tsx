@@ -139,7 +139,7 @@ export default function VendorPackageCard() {
                     <h3 className="font-semibold text-gray-800 dark:text-white">{pkg.name}</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400">{pkg.description}</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Revenue Type: {pkg.revenueType}</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Price: ${pkg.price}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Price: ₹{pkg.price}</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Rental Duration: {pkg.rentalDuration} days</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">View Threshold: {pkg.viewThreshold}</p>
                     <p className="text-sm text-gray-500 dark:text-gray-400">Category: {pkg.category}</p>

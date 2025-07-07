@@ -30,7 +30,7 @@ export default function UploadSeasonForm() {
       if (!token) return;
 
       try {
-        const response = await axios.get('http://localhost:9000/api/vendors/series', {
+        const response = await axios.get('http://https://shreejighutargo21.onrender.com/api/vendors/series', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setSeriesList(response.data.series);
@@ -52,7 +52,7 @@ export default function UploadSeasonForm() {
       if (!token) return;
 
       try {
-        const response = await axios.get(`http://localhost:9000/api/vendors/seasons/${selectedSeriesId}`, {
+        const response = await axios.get(`http://https://shreejighutargo21.onrender.com/api/vendors/seasons/${selectedSeriesId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("Fetched seasons:", response.data);
@@ -138,7 +138,7 @@ export default function UploadSeasonForm() {
         }
 
         await axios.post(
-          `http://localhost:9000/api/vendors/series/${selectedSeriesId}/seasons`,
+          `http://https://shreejighutargo21.onrender.com/api/vendors/series/${selectedSeriesId}/seasons`,
           formData,
           {
             headers: { 

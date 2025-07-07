@@ -11,20 +11,132 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
+    "/(full-width-pages)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(full-width-pages)/layout.js"
+    ],
+    "/(full-width-pages)/(auth)/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(full-width-pages)/(auth)/layout.js"
+    ],
+    "/(full-width-pages)/(auth)/signin/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(full-width-pages)/(auth)/signin/page.js"
+    ],
     "/(admin)/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/layout.js"
     ],
-    "/(admin)/(others-pages)/edit-profile/page": [
+    "/(admin)/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/(others-pages)/edit-profile/page.js"
+      "static/chunks/app/(admin)/page.js"
+    ],
+    "/(admin)/(others-pages)/(series)/getlistofseries/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(series)/getlistofseries/page.js"
     ],
     "/(admin)/(others-pages)/(series)/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/(others-pages)/(series)/[id]/page.js"
+    ],
+    "/(admin)/(others-pages)/(videos)/basic-videos/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(videos)/basic-videos/page.js"
+    ],
+    "/vendor/video/[videoId]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vendor/video/[videoId]/page.js"
+    ],
+    "/(admin)/(others-pages)/(videos)/reject-videos/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(videos)/reject-videos/page.js"
+    ],
+    "/(admin)/(others-pages)/addMovies/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/addMovies/page.js"
+    ],
+    "/(admin)/(others-pages)/upcoming-banners/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/upcoming-banners/page.js"
+    ],
+    "/(admin)/(others-pages)/casts/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/casts/page.js"
+    ],
+    "/(admin)/(others-pages)/(tvshows)/listoftvshows/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(tvshows)/listoftvshows/page.js"
+    ],
+    "/(admin)/(others-pages)/(tvshows)/tvshowsid/[showid]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(tvshows)/tvshowsid/[showid]/page.js"
+    ],
+    "/(admin)/(others-pages)/(tvshows)/uploadtvshow/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(tvshows)/uploadtvshow/page.js"
+    ],
+    "/(admin)/(others-pages)/contests/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/contests/page.js"
+    ],
+    "/(admin)/(others-pages)/LeaderBoard/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/LeaderBoard/page.js"
+    ],
+    "/(admin)/(others-pages)/(transactions)/transactionsall/error": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(transactions)/transactionsall/error.js"
+    ],
+    "/(admin)/(others-pages)/(transactions)/transactionsall/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/(transactions)/transactionsall/loading.js"
+    ],
+    "/(admin)/(others-pages)/(transactions)/transactionsall/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(admin)/(others-pages)/(transactions)/transactionsall/page.css",
+      "static/chunks/app/(admin)/(others-pages)/(transactions)/transactionsall/page.js"
+    ],
+    "/(admin)/(others-pages)/transactionsHistory/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(admin)/(others-pages)/transactionsHistory/page.css",
+      "static/chunks/app/(admin)/(others-pages)/transactionsHistory/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
+    ],
+    "/(admin)/(others-pages)/profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/profile/page.js"
+    ],
+    "/(admin)/(others-pages)/edit-profile/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/(others-pages)/edit-profile/page.js"
     ]
   }
 }

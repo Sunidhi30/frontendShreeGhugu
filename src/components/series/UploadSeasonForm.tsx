@@ -150,7 +150,7 @@
 //       }
 
 //       const response = await axios.post(
-//         `http://localhost:9000/api/vendors/series/${seriesId}/seasons`,
+//         `http://https://shreejighutargo21.onrender.com/api/vendors/series/${seriesId}/seasons`,
 //         formData,
 //         {
 //           headers: {

@@ -102,7 +102,7 @@ const TVShowsList = () => {
   const fetchCategories = async (authToken: string) => {
     try {
       console.log('🔄 Fetching categories...');
-      const response = await axios.get('http://localhost:9000/api/admin/get_categories', {
+      const response = await axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get_categories', {
         headers: {
           Authorization: `Bearer ${authToken}`,
           'Content-Type': 'application/json'
@@ -130,7 +130,7 @@ const TVShowsList = () => {
   const fetchTypes = async (authToken: string) => {
     try {
       console.log('🔄 Fetching types...');
-      const response = await axios.get('http://localhost:9000/api/admin/get_types', {
+      const response = await axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get_types', {
         headers: {
           Authorization: `Bearer ${authToken}`,
           'Content-Type': 'application/json'
@@ -156,7 +156,7 @@ const TVShowsList = () => {
   const fetchLanguages = async (authToken: string) => {
     try {
       console.log('Fetching languages...');
-      const response = await axios.get('http://localhost:9000/api/admin/get_languages', {
+      const response = await axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get_languages', {
         headers: {
           Authorization: `Bearer ${authToken}`
         }
@@ -201,7 +201,7 @@ const TVShowsList = () => {
 
   const fetchChannels = async (token: string) => {
     try {
-      const response = await axios.get('http://localhost:9000/api/vendors/get-channels', {
+      const response = await axios.get('http://https://shreejighutargo21.onrender.com/api/vendors/get-channels', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -225,7 +225,7 @@ const TVShowsList = () => {
     setLoading(true);
     try {
       console.log('Fetching TV shows for channel:', channelId);
-      const response = await axios.get(`http://localhost:9000/api/vendors/tvshows`, {
+      const response = await axios.get(`http://https://shreejighutargo21.onrender.com/api/vendors/tvshows`, {
         params: {
           channel_id: channelId
         },
@@ -303,7 +303,7 @@ const TVShowsList = () => {
   
     try {
       const response = await axios.post(
-        'http://localhost:9000/api/vendors/tvshows',
+        'http://https://shreejighutargo21.onrender.com/api/vendors/tvshows',
         formPayload,
         {
           headers: {

@@ -264,13 +264,13 @@ const AddVideoForm: React.FC = () => {
           producersRes,
           packagesRes
         ] = await Promise.all([
-          axios.get('http://localhost:9000/api/admin/get_categories', headers),
-          axios.get('http://localhost:9000/api/admin/get-casts', headers),
-          axios.get('http://localhost:9000/api/admin/get_types', headers),
-          axios.get('http://localhost:9000/api/admin/get_languages', headers),
-          axios.get('http://localhost:9000/api/admin/get-channels', headers), // Updated URL
-          axios.get('http://localhost:9000/api/admin/get-producers', headers),
-          axios.get('http://localhost:9000/api/vendors/get-packages', headers)
+          axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get_categories', headers),
+          axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get-casts', headers),
+          axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get_types', headers),
+          axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get_languages', headers),
+          axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get-channels', headers), // Updated URL
+          axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get-producers', headers),
+          axios.get('http://https://shreejighutargo21.onrender.com/api/vendors/get-packages', headers)
         ]);
    
         setCategories(categoriesRes.data.data);
@@ -326,13 +326,13 @@ const AddVideoForm: React.FC = () => {
   //         AxiosResponse<TypesResponse>,
   //         AxiosResponse<Package[]>
   //       ] = await Promise.all([
-  //         axios.get('http://localhost:9000/api/admin/get_categories', headers),
-  //         axios.get('http://localhost:9000/api/admin/get-casts', headers),
-  //         axios.get('http://localhost:9000/api/admin/get_types', headers),
-  //         axios.get('http://localhost:9000/api/admin/get_languages', headers),
-  //         axios.get('http://localhost:9000/api/admin/get-channels', headers),
-  //         axios.get('http://localhost:9000/api/admin/get-producers', headers),
-  //         axios.get('http://localhost:9000/api/vendors/get-packages', headers)
+  //         axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get_categories', headers),
+  //         axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get-casts', headers),
+  //         axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get_types', headers),
+  //         axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get_languages', headers),
+  //         axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get-channels', headers),
+  //         axios.get('http://https://shreejighutargo21.onrender.com/api/admin/get-producers', headers),
+  //         axios.get('http://https://shreejighutargo21.onrender.com/api/vendors/get-packages', headers)
   //       ]);
    
   //       setCategories(categoriesRes.data.data);
@@ -395,7 +395,7 @@ const AddVideoForm: React.FC = () => {
     try {
       const token: string | null = localStorage.getItem('token');
       const response: AxiosResponse<PackagesResponse> = await axios.get(
-        `http://localhost:9000/api/vendors/get-packages`,
+        `http://https://shreejighutargo21.onrender.com/api/vendors/get-packages`,
         {
           headers: {
             Authorization: `Bearer ${token}`
@@ -518,7 +518,7 @@ const AddVideoForm: React.FC = () => {
       }
   
       const res: AxiosResponse<any> = await axios.post(
-        'http://localhost:9000/api/vendors/create-video', 
+        'http://https://shreejighutargo21.onrender.com/api/vendors/create-video', 
         form, 
         {
           headers: {

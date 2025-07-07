@@ -114,7 +114,7 @@ export default function ViewMore() {
         </div>
 
         <div>
-          <p><span className="font-semibold">Price:</span> ${video?.price}</p>
+        <p><span className="font-semibold">Price:</span> ₹{video?.price}</p>
           <p><span className="font-semibold">Total Likes:</span> {video?.total_like}</p>
           <p><span className="font-semibold">Total Views:</span> {video?.total_view}</p>
           <p><span className="font-semibold">Total Comments:</span> {video?.total_comment}</p>

@@ -161,6 +161,8 @@ export default function SeriesDetailsPage() {
                     <Image
                       src={ep.thumbnail}
                       alt={ep.name}
+                      width={100}
+                      height={100}
                       className="w-full sm:w-28 h-16 object-cover rounded-md flex-shrink-0"
                     />
                     <div className="flex-1">
@@ -188,9 +190,10 @@ export default function SeriesDetailsPage() {
                         Views: {ep.total_view} | Approved: {ep.isApproved ? "Yes" : "No"}
                       </p>
                       {ep.price && (
-                        <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                          Price: ${ep.price.toFixed(2)}
-                        </p>
+                       <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
+                       Price: ₹{ep.price.toFixed(2)}
+                     </p>
+                     
                       )}
                     </div>
                   </div>

@@ -405,8 +405,9 @@ export default function TransactionsPage() {
                 Available Balance
               </h2>
               <p className="text-4xl font-bold text-green-600 dark:text-green-400">
-                ${walletData.data.walletBalance.toLocaleString()}
-              </p>
+  ₹{walletData.data.walletBalance.toLocaleString("en-IN")}
+</p>
+
             </motion.div>
 
             <motion.div
@@ -418,8 +419,9 @@ export default function TransactionsPage() {
                 Locked Balance
               </h2>
               <p className="text-4xl font-bold text-orange-600 dark:text-orange-400">
-                ${walletData.data.lockedBalance.toLocaleString()}
-              </p>
+  ₹{walletData.data.lockedBalance.toLocaleString("en-IN")}
+</p>
+
             </motion.div>
 
             <motion.div
@@ -431,8 +433,9 @@ export default function TransactionsPage() {
                 Total Balance
               </h2>
               <p className="text-4xl font-bold text-blue-600 dark:text-blue-400">
-                ${(walletData.data.walletBalance).toLocaleString()}
-              </p>
+  ₹{walletData.data.walletBalance.toLocaleString("en-IN")}
+</p>
+
             </motion.div>
           </div>
 
@@ -459,8 +462,9 @@ export default function TransactionsPage() {
                 Price Per View
               </h2>
               <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
-  ${earningsData.data.currentPricePerView.toFixed(3)}
+  ₹{earningsData.data.currentPricePerView.toFixed(3)}
 </p>
+
             </motion.div>
             <motion.div
   className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:col-span-2"
@@ -471,8 +475,9 @@ export default function TransactionsPage() {
     Total Earnings 
   </h2>
   <p className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">
-  ${parseFloat(earningsData.data.totalEarningsFromViews).toLocaleString()}
+  ₹{parseFloat(earningsData.data.totalEarningsFromViews).toLocaleString("en-IN")}
 </p>
+
 </motion.div>
 
           </div>
@@ -501,11 +506,12 @@ export default function TransactionsPage() {
                 </span>
               </p>
               <p className="text-gray-600 dark:text-gray-300">
-                {isTimerExpired 
-                  ? 'Your funds are now available for withdrawal!'
-                  : `Earnings are subject to a lock period before they become available for withdrawal. Current locked balance: $${walletData.data.lockedBalance.toLocaleString()}`
-                }
-              </p>
+  {isTimerExpired 
+    ? 'Your funds are now available for withdrawal!'
+    : `Earnings are subject to a lock period before they become available for withdrawal. Current locked balance: ₹${walletData.data.lockedBalance.toLocaleString("en-IN")}`
+  }
+</p>
+
             </div>
           </div>
         </motion.div>
@@ -538,7 +544,7 @@ export default function TransactionsPage() {
                 {/* Amount Field */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    Amount ($)
+                    Amount (₹)
                   </label>
                   <input
                     type="number"
@@ -552,9 +558,10 @@ export default function TransactionsPage() {
                     className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                     placeholder="Enter withdrawal amount"
                   />
-                  <p className="text-sm text-gray-500 mt-1">
-                    Available balance: ${walletData?.data.walletBalance.toLocaleString()}
-                  </p>
+               <p className="text-sm text-gray-500 mt-1">
+  Available balance: ₹{walletData?.data.walletBalance.toLocaleString("en-IN")}
+</p>
+
                 </div>
 
                 {/* UPI ID Field */}

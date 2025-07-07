@@ -233,7 +233,7 @@ export default function MonthlyTarget() {
           </div>
 
           <p className="mx-auto mt-10 w-full max-w-[380px] text-center text-sm text-gray-500 sm:text-base">
-            Your monthly target is ${target.toLocaleString()}
+            Your monthly target is  ₹{target.toLocaleString()}
           </p>
 
           <p className="mt-4 text-center text-sm font-medium text-blue-600 dark:text-blue-400">
@@ -247,21 +247,21 @@ export default function MonthlyTarget() {
           <div>
             <p className="mb-1 text-center text-gray-500 text-theme-xs dark:text-gray-400 sm:text-sm">Target</p>
             <p className="text-base font-semibold text-gray-800 dark:text-white/90 sm:text-lg text-center">
-              ${target.toLocaleString()}
+            ₹{target.toLocaleString()}
             </p>
           </div>
           <div className="w-px bg-gray-200 h-7 dark:bg-gray-800" />
           <div>
             <p className="mb-1 text-center text-gray-500 text-theme-xs dark:text-gray-400 sm:text-sm">Earned</p>
             <p className="text-base font-semibold text-gray-800 dark:text-white/90 sm:text-lg text-center">
-              ${invested.toLocaleString()}
+            ₹{invested.toLocaleString()}
             </p>
           </div>
           <div className="w-px bg-gray-200 h-7 dark:bg-gray-800" />
           <div>
             <p className="mb-1 text-center text-gray-500 text-theme-xs dark:text-gray-400 sm:text-sm">Remaining</p>
             <p className="text-base font-semibold text-gray-800 dark:text-white/90 sm:text-lg text-center">
-              ${remaining.toLocaleString()}
+            ₹{remaining.toLocaleString()}
             </p>
           </div>
         </div>

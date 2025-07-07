@@ -155,8 +155,9 @@ export default function WithdrawalHistoryPage() {
                 Current Balance
               </h3>
               <p className="text-3xl font-bold text-green-600 dark:text-green-400">
-                ${withdrawalData.data.walletBalance.toLocaleString()}
-              </p>
+  ₹{withdrawalData.data.walletBalance.toLocaleString("en-IN")}
+</p>
+
             </motion.div>
 
             <motion.div
@@ -249,9 +250,10 @@ export default function WithdrawalHistoryPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-lg font-bold text-gray-900 dark:text-white">
-                          ${request.amount.toLocaleString()}
-                        </div>
+                      <div className="text-lg font-bold text-gray-900 dark:text-white">
+  ₹{request.amount.toLocaleString("en-IN")}
+</div>
+
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(request.status)}`}>
@@ -271,7 +273,7 @@ export default function WithdrawalHistoryPage() {
                           {formatDate(request.requestDate)}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py- whitespace-nowrap">
                         <button
                           onClick={() => setSelectedRequest(request)}
                           className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium text-sm"
@@ -290,14 +292,14 @@ export default function WithdrawalHistoryPage() {
 
       {/* Request Details Modal */}
       {selectedRequest && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-100 flex items-center justify-center z-50 p-4">
           <motion.div
-            className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="p-6">
+            <div className="p-20">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                   Withdrawal Request Details
@@ -326,8 +328,9 @@ export default function WithdrawalHistoryPage() {
                       Amount
                     </label>
                     <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                      ${selectedRequest.amount.toLocaleString()}
-                    </p>
+  ₹{selectedRequest.amount.toLocaleString("en-IN")}
+</p>
+
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">

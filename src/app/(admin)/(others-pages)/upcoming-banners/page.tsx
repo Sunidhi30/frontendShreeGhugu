@@ -67,7 +67,7 @@
 
 //   const fetchBanners = async () => {
 //     try {
-//       const res = await fetch('http://localhost:9000/api/vendors/upcoming-banners');
+//       const res = await fetch('http://https://shreejighutargo21.onrender.com/api/vendors/upcoming-banners');
 //       const data = await res.json();
 //       setBanners(data.data);
 //     } catch (err) {
@@ -108,7 +108,7 @@
 //     if (trailer) formData.append('trailer', trailer);
 
 //     try {
-//       const res = await fetch('http://localhost:9000/api/vendors/upcoming-banners', {
+//       const res = await fetch('http://https://shreejighutargo21.onrender.com/api/vendors/upcoming-banners', {
 //         method: 'POST',
 //         headers: { Authorization: `Bearer ${token || ''}` },
 //         body: formData,
@@ -380,7 +380,7 @@
 //             <div key={banner._id} className="group rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
 //               <div className="relative overflow-hidden">
 //                 <img 
-//                   src={banner.bannerUrl.startsWith('http') ? banner.bannerUrl : `http://localhost:9000${banner.bannerUrl}`} 
+//                   src={banner.bannerUrl.startsWith('http') ? banner.bannerUrl : `http://https://shreejighutargo21.onrender.com${banner.bannerUrl}`} 
 //                   alt={banner.title} 
 //                   className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-110" 
 //                 />
@@ -551,7 +551,7 @@ const UpcomingBannerPage = () => {
 
   const fetchBanners = async () => {
     try {
-      const res = await fetch('http://localhost:9000/api/vendors/upcoming-banners');
+      const res = await fetch('http://https://shreejighutargo21.onrender.com/api/vendors/upcoming-banners');
       const data = await res.json();
       setBanners(data.data);
     } catch (err) {
@@ -602,7 +602,7 @@ const UpcomingBannerPage = () => {
         requestInit.headers = { Authorization: `Bearer ${token}` };
       }
 
-      const res = await fetch('http://localhost:9000/api/vendors/upcoming-banners', requestInit);
+      const res = await fetch('http://https://shreejighutargo21.onrender.com/api/vendors/upcoming-banners', requestInit);
 
       const data = await res.json();
       if (res.ok) {
@@ -870,7 +870,7 @@ return (
             <div key={banner._id} className="group rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
               <div className="relative overflow-hidden">
                 <img 
-                  src={banner.bannerUrl.startsWith('http') ? banner.bannerUrl : `http://localhost:9000${banner.bannerUrl}`} 
+                  src={banner.bannerUrl.startsWith('http') ? banner.bannerUrl : `http://https://shreejighutargo21.onrender.com${banner.bannerUrl}`} 
                   alt={banner.title} 
                   className="w-full h-48 sm:h-56 object-cover transition-transform duration-500 group-hover:scale-110" 
                 />

@@ -551,7 +551,7 @@ export default function EpisodesPage() {
   useEffect(() => {
     if (!token) return alert('You must be logged in.');
 
-    fetch('http://localhost:9000/api/vendors/series', {
+    fetch('https://shreejighutargo21.onrender.com/api/vendors/series', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -574,7 +574,7 @@ export default function EpisodesPage() {
       return;
     }
 
-    fetch(`http://localhost:9000/api/vendors/seasons/${selectedSeries}`, {
+    fetch(`http://https://shreejighutargo21.onrender.com/api/vendors/seasons/${selectedSeries}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -654,7 +654,7 @@ if (trailerOption === 'url') {
     }
   
     try {
-      const res = await fetch('http://localhost:9000/api/vendors/episodes', {
+      const res = await fetch('http://https://shreejighutargo21.onrender.com/api/vendors/episodes', {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,

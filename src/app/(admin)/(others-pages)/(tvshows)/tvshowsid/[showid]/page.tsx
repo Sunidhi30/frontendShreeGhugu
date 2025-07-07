@@ -1,9 +1,9 @@
 
 'use client';
 
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 // Update types to match your API response
 type Episode = {
   _id: string;
@@ -170,6 +170,8 @@ export default function TVShowDetailsPage() {
       <Image
         src={tvShow.thumbnail}
         alt={tvShow.title}
+        width={100}
+        height={100}
         className="w-full sm:w-48 h-64 rounded-lg object-cover flex-shrink-0"
       />
 
